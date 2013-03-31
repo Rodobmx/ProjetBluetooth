@@ -6,6 +6,8 @@
 
 // Prototypes
 void board_init(void);
+void initInterrupt(void);
+void initTimer(void);
 void tempo_ms(int ms);
 
 #endif

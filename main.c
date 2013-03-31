@@ -5,6 +5,7 @@
 #include "system.h"
 #include "uart.h"
 #include "led.h"
+#include "robot.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -72,7 +73,8 @@ uint8_t parse_cmd(char* querry)
     switch(querry[1])
     {
       case 's':                                 // "-s;"
-        // TODO
+        TACCR1 = 0;
+        TACCR2 = 0;
       break;
       
       case 'v':                                 // "-v:sggg,sddd;"
@@ -85,11 +87,13 @@ uint8_t parse_cmd(char* querry)
         if(querry[8] == '-')
           r_wheel_dir = 1;
         
+        setSens(l_wheel_dir, r_wheel_dir);
+        
         //l_wheel_spd = atoi(querry+4, 3);      // TODO (Seb) : creer une fonction "atoi(char* str, uint8_t len)"
         //r_wheel_spd = atoi(querry+9, 3);      // TODO (seb) : idem
         
-        // TODO : Action sur le moteurs
-        
+        TACCR1 = l_wheel_spd*10;
+        TACCR2 = r_wheel_spd*10;
       }
       break;
       

@@ -1960,6 +1960,12 @@
     <name>$PROJ_DIR$\main.c</name>
   </file>
   <file>
+    <name>$PROJ_DIR$\robot.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\robot.h</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\system.c</name>
   </file>
   <file>

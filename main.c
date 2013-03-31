@@ -1,74 +1,112 @@
-
-#include "io430.h"
-#include "robot.h"
+// main_bltth.c
 
 
-void initTimer()
-{   // 0 dec +> 00000000
-  P1DIR |= BIT2 + BIT4;//0xFF-BIT5-BIT1-BIT6;//RoueA_BIT + RoueB_BIT + BIT3; 00000010100
-  P1SEL |= BIT2 + BIT4;//0xFF-BIT5-BIT1-BIT6;// RoueA_BIT + RoueB_BIT + BIT3;
-  P1SEL2 |= BIT4;
-  //TACCR0 = 64;
-  TACCTL0 = CCIE;
-  TACCR0 = 1000;//65536-1; //32us = 31.25kHz
-  TACCTL1 |= OUTMOD_7;
-  TACCR1 = 0;//consigne_RoueA/2*1024;
-  TACCTL2 |= OUTMOD_7;
-  TACCR2 = 0;//*1024//
-  TACTL |= TASSEL_2 | MC_1 | ID_0;                  // ACLK, upmode 
-}
+// Includes
+#include "system.h"
+#include "uart.h"
+#include "led.h"
 
-void initInterrupt()
-{
-  /*P2DIR &= ~(BIT3 + BIT4); // optos
-  P2IES |= (BIT3 + BIT4);     
-  P2IFG &= ~(BIT3 + BIT4);    
-  P2IE |= (BIT3+BIT4); */     
-   __enable_interrupt();
-}
+#include <string.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <io430x16x.h>
 
-void initBoard()
-{
-  // Arr?t du watchdog
-  WDTCTL = WDTPW + WDTHOLD;
-  
-  // DCO calibration at 1MHz
-  if (CALBC1_1MHZ ==0xFF || CALDCO_1MHZ == 0xFF)                                     
-  {  
-    while(1);                               // If calibration constants erased
-                                            // do not load, trap CPU!!
-  } 
-  //1Mhz
-  BCSCTL1 = CALBC1_1MHZ;                    // Set range
-  DCOCTL = CALDCO_1MHZ;                     // Set DCO step + modulation */
-  
-  // Initialisation des leds
-  //init_Leds();
-  
-  // Initialisation de l'ADC
-  //init_ADC();
-  
-  
-  
-}
 
+// Defines
+#define ERR_NONE                        0
+#define ERR_INCORRECT_START_TRAME       1
+#define ERR_CMD_NON_RECONNUE            2
+
+
+// Prototypes
+//uint8_t atoi(char* str, uint8_t len);
+uint8_t parse_cmd(char* querry);
+
+
+// Main
 int main( void )
 {
-  // Stop watchdog timer to prevent time out reset
-  WDTCTL = WDTPW + WDTHOLD;
+  char querry[20];
   
-  P2DIR |= BIT1 | BIT2;
-  P2DIR &= ~(BIT3 + BIT4);
-  P2OUT = 0;
-  initTimer();
-initBoard();
-
+  board_init();
+  led_init();
+  uart_init();
+  
+  
   while(1)
   {
-    GetTrame();
-    parseTrame();
+    //uart_gets(querry, 20);              // TODO (Seb) : A remplacer par "uart_gets_until(querry, ';', 20)"
+    uart_gets_until(querry, ';', 20);
+    parse_cmd(querry);
+    
+    __delay_cycles(100);
   }
+}
 
 
-  return 0;
+// Definitions
+// --------------------------
+// Fonction : 
+// Description : 
+// Param(s) : 
+// Output : 
+// --------------------------
+/*uint8_t atoi(char* str, uint8_t len)
+{
+
+}
+*/
+
+// --------------------------
+// Fonction : 
+// Description : 
+// Param(s) : 
+// Output : 
+// --------------------------
+uint8_t parse_cmd(char* querry)
+{
+  if(querry[0] != '-')
+    return ERR_INCORRECT_START_TRAME;
+  else
+  {
+    switch(querry[1])
+    {
+      case 's':                                 // "-s;"
+        // TODO
+      break;
+      
+      case 'v':                                 // "-v:sggg,sddd;"
+      {                                         //  0123456789012
+        uint8_t l_wheel_dir = 0, r_wheel_dir = 0;
+        uint8_t l_wheel_spd = 0, r_wheel_spd = 0;
+        
+        if(querry[3] == '-')
+          l_wheel_dir = 1;
+        if(querry[8] == '-')
+          r_wheel_dir = 1;
+        
+        //l_wheel_spd = atoi(querry+4, 3);      // TODO (Seb) : creer une fonction "atoi(char* str, uint8_t len)"
+        //r_wheel_spd = atoi(querry+9, 3);      // TODO (seb) : idem
+        
+        // TODO : Action sur le moteurs
+        
+      }
+      break;
+      
+      case 'l':                                 // "-l:g,d;"
+      {                                         //  0123456
+        if(querry[3] == '1')
+          led_red_toggle();
+        if(querry[5] == '1')
+          led_green_toggle();
+      }
+      break;
+      
+      default:
+        return ERR_CMD_NON_RECONNUE;
+      break;
+    }
+  }
+  
+  return ERR_NONE;
 }

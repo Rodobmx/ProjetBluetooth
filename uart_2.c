@@ -1,9 +1,9 @@
-// uart.c
+// uart_2.c
 
 
 // Includes
 #include <io430g2553.h>
-#include "uart.h"
+#include "uart_2.h"
 
 
 // Defines
@@ -12,11 +12,7 @@
 
 
 // Variables
-unsigned int  tx_flag;			// Flag indicate that a byte is sending.
-unsigned char tx_char;			//
-
-unsigned int  rx_flag;			// Flag indicate that a byte is receiving.
-unsigned char rx_char;			//
+unsigned char rx_char;
 
 
 // Definitions
@@ -52,9 +48,6 @@ void uart_init(void)
   
   IE2 |= UCA0RXIE;                      // Enable USCI_A0 RX interrupt
   
-  rx_flag = 0;				// Set rx_flag to 0
-  tx_flag = 0;				// Set tx_flag to 0
-  
 }
 
 // ------------------------------------
@@ -68,15 +61,8 @@ void uart_init(void)
 // ------------------------------------
 void uart_putc(unsigned char c)
 {
-/*
-  while (!(IFG2 & UCA0TXIFG));
-    UCA0TXBUF = c;
-*/
-	
-  tx_char = c;                  // Put the char into the tx_char
-  IE2 |= UCA0TXIE; 		// Enable USCI_A0 TX interrupt
-  while(tx_flag == 1);		// Have to wait for the TX buffer
-  tx_flag = 1;			// Reset the tx_flag
+  while (!(IFG2 & UCA0TXIFG));          // On reste en attente, tant que l'on est pas près à transmettre
+    UCA0TXBUF = c;                      // on envoi le caractere
 }
 
 // ------------------------------------
@@ -93,7 +79,7 @@ void uart_puts(char* str)
   while(*str)
   {
     uart_putc(*str++);
-    while(UCA0STAT & UCBUSY);	// Wait until the last byte is completely sent
+    while(UCA0STAT & UCBUSY);	        // Wait until the last byte is completely sent
   }
   
 }
@@ -109,15 +95,8 @@ void uart_puts(char* str)
 // ------------------------------------
 unsigned char uart_getc(void)
 {
-/*
-  while (!(IFG2 & UCA0RXIFG));
-    return (char)UCA0RXBUF;
-*/
-  
-  while (rx_flag == 0);		// Wait for rx_flag to be set
-  rx_flag = 0;			// ACK rx_flag
-  
-  return rx_char;
+  while (!(IFG2 & UCA0RXIFG));          // On reste en attente, tant que l'on est pas près à recevoir
+    return UCA0RXBUF;             // On récupère le caractere
 }
 
 // ------------------------------------
@@ -149,38 +128,7 @@ void uart_gets(char* str, int length)
   }
 }
 
-// ------------------------------------
-// Function : uart_gets_until
-//
-// Description : 
-//               
-//
-// Param(s) : char* str, array pointer
-//            char stopch, TODO ...
-//            int length, length of the string
-//
-// Return   : uint8_t, nb of caracters read
-// ------------------------------------
-uint8_t uart_gets_until(char* str, uint8_t len, char stopch)
-{
-  // TODO
-  uint8_t i, count;
-  char c;
-
-  count = 0;
-  for (i = 0; i < (len - 1); i++)
-  {
-    c = uart_getc();
-    str[i] = c;
-    count++;
-    if (c == stopch)
-      break;
-  }
-  str[(++i)] = '\0';
-
-  return count;
-}
-
+/*
 // ------------------------------------
 // UART TX interrupt routine.
 // ------------------------------------
@@ -191,6 +139,7 @@ __interrupt void USCI0TX_ISR(void)
   tx_flag = 0;			// ACK the tx_flag
   IE2 &= ~UCA0TXIE; 		// Turn off the interrupt to save CPU
 }
+*/
 
 // ------------------------------------
 // UART RX interrupt routine.
@@ -198,6 +147,5 @@ __interrupt void USCI0TX_ISR(void)
 #pragma vector=USCIAB0RX_VECTOR
 __interrupt void USCI0RX_ISR(void)
 {
-  rx_char = (char)UCA0RXBUF;	// Copy from RX buffer, in doing so we ACK the interrupt as well
-  rx_flag = 1;			// Set the rx_flag to 1
+  rx_char = UCA0RXBUF;            // Copy from RX buffer
 }

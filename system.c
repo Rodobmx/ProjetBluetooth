@@ -1,9 +1,7 @@
 // system.c
-
-
 // Includes
 #include <io430g2553.h>
-#include <intrinsics.h>
+
 
 #include "system.h"
 
@@ -40,6 +38,10 @@ void initTimer(void)
   P1DIR |= BIT2 + BIT4;//0xFF-BIT5-BIT1-BIT6;//RoueA_BIT + RoueB_BIT + BIT3; 00000010100
   P1SEL |= BIT2 + BIT4;//0xFF-BIT5-BIT1-BIT6;// RoueA_BIT + RoueB_BIT + BIT3;
   P1SEL2 |= BIT4;
+  
+  P2DIR |= BIT1 | BIT2;
+  P2DIR &= ~(BIT3 + BIT4);
+  
   //TACCR0 = 64;
   TACCTL0 = CCIE;
   TACCR0 = 1000;//65536-1; //32us = 31.25kHz

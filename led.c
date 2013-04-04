@@ -1,11 +1,7 @@
 // led.c
-
-
 // Includes
-#include <io430.h>
-
+#include <io430g2553.h>
 #include "led.h"
-
 
 // Defines
 #define LEDR    BIT0
@@ -69,7 +65,7 @@ void led_red_on(void)
 // ------------------------------------
 // Fonction permettant d'éteindre la led rouge
 // ------------------------------------
-void led_red_off( void )
+void led_red_off(void)
 {
   P1OUT &= ~LEDR;                // Mise à 0 du bit 0 du port 1
                                 //    xxxx xxxx
@@ -80,7 +76,7 @@ void led_red_off( void )
 // ------------------------------------
 // Fonction permettant d'inverser l'état de  la led rouge
 // ------------------------------------
-void led_red_toggle( void )
+void led_red_toggle(void)
 {
   P1OUT ^= LEDR;                 //     xxxx xxxx
                                 // XOR          1

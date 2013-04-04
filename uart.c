@@ -1,203 +1,91 @@
-// uart.c
-
-
-// Includes
-#include <io430g2553.h>
+/*
+	SAVOURET RODOLPHE
+	TRANIELLO SEBASTIEN
+*/
 #include "uart.h"
+#include "robot.h"
 
+#include <io430g2553.h>
 
-// Defines
-#define RXD BIT1
-#define TXD BIT2
+unsigned char buffer[15]="-s:+050,+050;";
+unsigned int index=0;
 
-
-// Variables
-unsigned int  tx_flag;			// Flag indicate that a byte is sending.
-unsigned char tx_char;			//
-
-unsigned int  rx_flag;			// Flag indicate that a byte is receiving.
-unsigned char rx_char;			//
-
-
-// Definitions
-// ------------------------------------
-// Function : uart_init
-//
-// Description : Set up the UART interface via USCI
-//
-// Param(s) : Nothing
-//
-// Return   : Nothing
-// ------------------------------------
-void uart_init(void)
+/**
+  * Initialisation de la config de l'uart
+  * 115200 bauds, pas de parité, 8 bits de data
+  */
+void UART_Init()
 {
-  int val;
+  P1DIR |= BIT2;
+  P1SEL |= BIT1 + BIT2; // P1.1 et P1.2 UART MODE TX / RX
+  P1SEL2 |= BIT1 + BIT2; // P1.1 et P1.2 UART MODE
   
-  P1SEL  |= (RXD + TXD);                // Set up the I/O
-  P1SEL2 |= (RXD + TXD);                // TXD and RXD
+  //UCA0BR0 = 9; // 1 000 000 Hz / 115200 bauds = 8.6
+  UCA0BR0 = 104; // 1 000 000 Hz / 9600 bauds = 104.1
+  UCA0BR1 = 0;
   
-  UCA0CTL1 |= UCSSEL_2;                 // SMCLK
-  
-  val = 1000000/9600;                   // 1 000 000 Hz, 9600 Baud, UCBR1=0x68, UCBR0=0x00
-  UCA0BR0 = val & 0xFF;                 // 1MHz, 9600
-  UCA0BR1 = val >> 8;                   // 1MHz, 9600
-  
-  UCA0CTL0 &= ~UCPEN & ~UCPAR;          // desactivation de la parité ; parité "odd"
-  UCA0CTL0 &= ~UCMSB;                   // determination de l'ordre des bits (LSB en 1er)
-  
-  UCA0CTL0 &= ~UC7BIT;                  // determination de la longueur des données (8 bits)
-  UCA0CTL0 &= ~UCSPB;                   // determination du nb de bit de stop (1 bit)
-  
-  UCA0CTL1 &= ~UCSWRST ;                // USCI state machine , desactivation du reset logiciel
-  
-  IE2 |= UCA0RXIE;                      // Enable USCI_A0 RX interrupt
-  
-  rx_flag = 0;				// Set rx_flag to 0
-  tx_flag = 0;				// Set tx_flag to 0
-  
+  // UCPEN : Parity enable/disable 
+  // UCPAR nb bit de parité 
+  // UCMSB MSB/LSB First
+  // UC7BIT : Nb de bit de data
+  // le ~ inverse les bits.
+  UCA0CTL0 &= ~(UCPEN + UCPAR + UCMSB + UC7BIT + UCSPB + UCMODE0);
+  UCA0CTL1 |= UCSSEL_2; // Choix de la clock à 1 Mhz
+  //IFG2 = 0;
+
+  UCA0CTL1 &= ~UCSWRST; // Desactive le RST de l'UART
+  IE2 |= UCA0RXIE; // Interrupt Enable (Reception sur l'UART)
 }
 
-// ------------------------------------
-// Function : uart_putc
-//
-// Description : Sends a char to the UART. Will wait if the UART is busy
-//
-// Param(s) : unsigned char c, char to send
-//
-// Return   : Nothing
-// ------------------------------------
-void uart_putc(unsigned char c)
+/**
+  * Fonction permettant l'envoi d'un élément
+  * buff : caractere à envoyer
+  */
+void UART_PutChar(char buff)
 {
-/*
-  while (!(IFG2 & UCA0TXIFG));
-    UCA0TXBUF = c;
-*/
+  while(UCA0STAT & UCBUSY);
+  UCA0TXBUF = buff;
+}
+
+/**
+  * Fonction permettant la reception d'un caractère
+  * Return : caractere recu
+  */
+char UART_GetChar()
+{
+	while (!(IFG2 & UCA0RXIFG));
+	return UCA0RXBUF;
+}
+
+
+/**
+  * Fonction permettant l'envoi d'une chaine de caractere
+  * buff : pointeur sur chaine de caractere
+  * size : nombre de caractere dans la chaine
+  */
+void UART_PutString(char* buff, unsigned int size)
+{
+  unsigned int i;
+  for(i=0; i<size-1; i++)
+  {
+    UART_PutChar(buff[i]);
+  }
+}
+
+void GetTrame()
+{
+	index = 0;
+	buffer[index] = UART_GetChar();
 	
-  tx_char = c;                  // Put the char into the tx_char
-  IE2 |= UCA0TXIE; 		// Enable USCI_A0 TX interrupt
-  while(tx_flag == 1);		// Have to wait for the TX buffer
-  tx_flag = 1;			// Reset the tx_flag
-}
-
-// ------------------------------------
-// Function : uart_puts
-//
-// Description : Sends a string to the UART. Will wait if the UART is busy
-//
-// Param(s) : char* str, pointer to string to send
-//
-// Return   : Nothing
-// ------------------------------------
-void uart_puts(char* str)
-{
-  while(*str)
-  {
-    uart_putc(*str++);
-    while(UCA0STAT & UCBUSY);	// Wait until the last byte is completely sent
-  }
-  
-}
-
-// ------------------------------------
-// Function : uart_getc
-//
-// Description : Get a char from the UART.
-//
-// Param(s) : Nothing
-//
-// Return   : unsigned char, char from UART
-// ------------------------------------
-unsigned char uart_getc(void)
-{
-/*
-  while (!(IFG2 & UCA0RXIFG));
-    return (char)UCA0RXBUF;
-*/
-  
-  while (rx_flag == 0);		// Wait for rx_flag to be set
-  rx_flag = 0;			// ACK rx_flag
-  
-  return rx_char;
-}
-
-// ------------------------------------
-// Function : uart_gets
-//
-// Description : Get a string of known length from the UART. Strings terminate when enter is pressed or string buffer fills
-//               Will return when all the chars are received or a carriage return (\r) is received. Waits for the data.
-//
-// Param(s) : char* str, array pointer
-//            int length, length of the string
-//
-// Return   : Nothing
-// ------------------------------------
-void uart_gets(char* str, int length)
-{
-  unsigned int i = 0;
-  
-  while(i < length)
-  {
-	str[i] = uart_getc();
-	if(str[i] == '\r')
+	while(buffer[index] != TRAME_CAR_START) // Start with -
+		buffer[index] = UART_GetChar();
+	
+	while(buffer[index] != TRAME_CAR_END)
 	{
-	  for( ; i< length; i++)
-	  {
-		str[i] = '\0';
-	  }
+		index ++;
+		buffer[index] = UART_GetChar();
 	}
-	i++;
-  }
-}
-
-// ------------------------------------
-// Function : uart_gets_until
-//
-// Description : 
-//               
-//
-// Param(s) : char* str, array pointer
-//            char stopch, TODO ...
-//            int length, length of the string
-//
-// Return   : uint8_t, nb of caracters read
-// ------------------------------------
-uint8_t uart_gets_until(char* str, uint8_t len, char stopch)
-{
-  // TODO
-  uint8_t i, count;
-  char c;
-
-  count = 0;
-  for (i = 0; i < (len - 1); i++)
-  {
-    c = uart_getc();
-    str[i] = c;
-    count++;
-    if (c == stopch)
-      break;
-  }
-  str[(++i)] = '\0';
-
-  return count;
-}
-
-// ------------------------------------
-// UART TX interrupt routine.
-// ------------------------------------
-#pragma vector = USCIAB0TX_VECTOR
-__interrupt void USCI0TX_ISR(void)
-{
-  UCA0TXBUF = tx_char;		// Copy char to the TX Buffer
-  tx_flag = 0;			// ACK the tx_flag
-  IE2 &= ~UCA0TXIE; 		// Turn off the interrupt to save CPU
-}
-
-// ------------------------------------
-// UART RX interrupt routine.
-// ------------------------------------
-#pragma vector=USCIAB0RX_VECTOR
-__interrupt void USCI0RX_ISR(void)
-{
-  rx_char = (char)UCA0RXBUF;	// Copy from RX buffer, in doing so we ACK the interrupt as well
-  rx_flag = 1;			// Set the rx_flag to 1
+        
+        char p = '>';
+        UART_PutChar(p);
 }

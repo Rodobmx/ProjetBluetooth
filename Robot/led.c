@@ -1,7 +1,14 @@
-// led.c
+// 
+// Filename : led.c
+// Author   : KevinM
+// Modified : 05/04/2012
+//
+
+
 // Includes
-#include <io430g2553.h>
 #include "led.h"
+#include <io430g2553.h>
+
 
 // Defines
 #define LEDR    BIT0
@@ -10,17 +17,24 @@
 
 // Definitions
 // ------------------------------------
-// Fonction permettant d'initialiser les leds
+// Fonction    : led_setup
+// Description : Permet d'initialiser les leds
+// Param(s)    : None
+// Output      : Nothing
 // ------------------------------------
-void led_init(void)
+void led_setup(void)
 {
-   P1DIR |= LEDR | LEDG;        // bits 0 et 7 du port 1 sont des sorties
-   led_red_off();
-   led_green_off();
+   P1DIR |= LEDR | LEDG;        // bits 0 et 6 du port 1 sont des sorties
+   
+   led_red_off();               // Extinction des leds
+   led_green_off();             // ...
 }
 
 // ------------------------------------
-// Fonction permettant d'allumer la led verte
+// Fonction    : led_green_on
+// Description : Permet d'allumer la led verte
+// Param(s)    : None
+// Output      : Nothing
 // ------------------------------------
 void led_green_on(void)
 {
@@ -31,7 +45,10 @@ void led_green_on(void)
 }
 
 // ------------------------------------
-// Fonction permettant d'éteindre la led verte
+// Fonction    : led_green_off
+// Description : Permet d'éteindre la led verte
+// Param(s)    : None
+// Output      : Nothing
 // ------------------------------------
 void led_green_off(void)
 {
@@ -42,7 +59,10 @@ void led_green_off(void)
 }
 
 // ------------------------------------
-// Fonction permettant d'inverser l'état de  la led verte
+// Fonction    : led_green_toggle
+// Description : Permet d'inverser l'état de  la led verte
+// Param(s)    : None
+// Output      : Nothing
 // ------------------------------------
 void led_green_toggle(void)
 {
@@ -52,7 +72,10 @@ void led_green_toggle(void)
 }
 
 // ------------------------------------
-// Fonction permettant d'allumer la led rouge
+// Fonction    : led_red_on
+// Description : Permet d'allumer la led rouge
+// Param(s)    : None
+// Output      : Nothing
 // ------------------------------------
 void led_red_on(void)
 {
@@ -63,20 +86,26 @@ void led_red_on(void)
 }
 
 // ------------------------------------
-// Fonction permettant d'éteindre la led rouge
+// Fonction    : led_red_off
+// Description : Permet d'éteindre la led rouge
+// Param(s)    : None
+// Output      : Nothing
 // ------------------------------------
-void led_red_off(void)
+void led_red_off( void )
 {
-  P1OUT &= ~LEDR;                // Mise à 0 du bit 0 du port 1
+  P1OUT &= ~LEDR;               // Mise à 0 du bit 0 du port 1
                                 //    xxxx xxxx
                                 // TODO
                                 //
 }
 
 // ------------------------------------
-// Fonction permettant d'inverser l'état de  la led rouge
+// Fonction    : led_red_toggle
+// Description : Permet d'inverser l'état de  la led rouge
+// Param(s)    : None
+// Output      : Nothing
 // ------------------------------------
-void led_red_toggle(void)
+void led_red_toggle( void )
 {
   P1OUT ^= LEDR;                 //     xxxx xxxx
                                 // XOR          1

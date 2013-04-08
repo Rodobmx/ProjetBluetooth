@@ -74,7 +74,7 @@ def main():
 		mon_joystick.init()							#Initialisation
 
 		ser = serial.Serial(
-			port = "COM23",
+			port = "COM27",
 			baudrate = 9600,
 			parity = serial.PARITY_NONE,
 			stopbits = serial.STOPBITS_ONE,
@@ -92,7 +92,7 @@ def main():
 		else:
 			print("  Port ouvert on peut envoyer qq chose")
 			
-			sendCmd("TEST", ser)
+			#sendCmd("TEST", ser)
 
 
 			joy_l_val = 0    	# la valeur du joystick de gauche
@@ -166,6 +166,9 @@ def main():
 					if toSend is True:
 						sendCmd(trame_to_send, ser)
 						toSend = False
+						led_r = '0'
+						led_l = '0'
+
 
 				clock.tick(20)
 			

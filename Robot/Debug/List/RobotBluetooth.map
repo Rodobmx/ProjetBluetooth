@@ -1,1 +1,0 @@
-Error[e24]: Segment DATA16_AN (seg part no 1, symbol "TACCR1" in module "main", address [174-175])  overlaps segment DATA16_AN (seg part no 11, symbol "TA0CCR1" in module "system", address [174-175]) 

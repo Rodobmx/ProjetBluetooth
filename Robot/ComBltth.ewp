@@ -494,7 +494,7 @@
         </option>
         <option>
           <name>AList</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>AListHeader</name>
@@ -644,7 +644,7 @@
         </option>
         <option>
           <name>OutputFile</name>
-          <state>RobotBluetooth.d43</state>
+          <state>ComBltth.d43</state>
         </option>
         <option>
           <name>OutputFormat</name>
@@ -838,7 +838,7 @@
         </option>
         <option>
           <name>ExtraOutputFile</name>
-          <state>RobotBluetooth.a43</state>
+          <state>ComBltth.a43</state>
         </option>
         <option>
           <name>ExtraOutputFormat</name>
@@ -1951,7 +1951,16 @@
     </settings>
   </configuration>
   <file>
+    <name>$PROJ_DIR$\bluetooth.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\bluetooth.h</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\led.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\..\led.h</name>
   </file>
   <file>
     <name>$PROJ_DIR$\led.h</name>
@@ -1960,19 +1969,25 @@
     <name>$PROJ_DIR$\main.c</name>
   </file>
   <file>
-    <name>$PROJ_DIR$\robot.c</name>
+    <name>$PROJ_DIR$\motor.c</name>
   </file>
   <file>
-    <name>$PROJ_DIR$\robot.h</name>
+    <name>$PROJ_DIR$\motor.h</name>
   </file>
   <file>
     <name>$PROJ_DIR$\system.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\..\system.h</name>
   </file>
   <file>
     <name>$PROJ_DIR$\system.h</name>
   </file>
   <file>
     <name>$PROJ_DIR$\uart.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\..\uart.h</name>
   </file>
   <file>
     <name>$PROJ_DIR$\uart.h</name>

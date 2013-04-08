@@ -1,48 +1,95 @@
-// main_bltth.c
+// 
+// Filename : main.c
+// Author   : KevinM
+// Modified : 05/04/2012
+//
+
 
 // Includes
 #include "system.h"
-#include "uart.h"
 #include "led.h"
-#include "robot.h"
-
-#include <string.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <io430g2553.h>
+#include "uart.h"
+#include "bluetooth.h"
+#include "motor.h"
 
 
-// Defines
-#define ERR_NONE                        0
-#define ERR_INCORRECT_START_TRAME       1
-#define ERR_CMD_NON_RECONNUE            2
-
-
-// Prototypes
-//uint8_t atoi(char* str, uint8_t len);
-//uint8_t parse_cmd(char* querry);
-
+// Variables
+uint8_t running = 1;
 
 // Main
-int main( void )
+int main(void)
 {
-  //char querry[20];
-  board_init();
-  led_init();
-  UART_Init();
-  initInterrupt();
-  //initTimer();
+  // init
+  board_setup();
+  led_setup();
+  bltth_setup();
+  motor_setup();
   
-  //parseTrame();
-  
-  while(1)
+  /*
+  // TESTS
   {
-    //uart_gets(querry, 20);              // TODO (Seb) : A remplacer par "uart_gets_until(querry, ';', 20)"   
-    GetTrame();
-    //parseTrame();
-    //UART_PutChar('a');
-    //__delay_cycles(10000);
+    char strReceived[64];
+    char cReceived;
+    uint8_t nbCharReceived, nbCharSend;
+    
+    uart_puts("WELCOME MASTER ! I WILL SERVE YOU .\r\n");
+    
+    uart_puts("Sending a string.");
+    uart_puts("\r\n");
+    nbCharSend = uart_puts("TEST");                             // <-
+    uart_puts("\r\n");
+    uart_putc((char)nbCharSend+0x30);
+    uart_puts(" caracters send.");
+    
+    uart_puts("\r\n");
+    uart_puts("Type 1 caracter.");
+    uart_puts("\r\n");
+    uart_puts(">>> ");
+    cReceived = uart_getc();                                    // <-
+    
+    uart_puts("\r\n");
+    uart_puts("you send : ");
+    nbCharSend = uart_putc(cReceived);                         // <-
+    uart_puts("\r\n");
+    uart_putc((char)nbCharSend+0x30);
+    uart_puts(" caracters send.");
+    
+    uart_puts("\r\n");
+    uart_puts("Type a string.");
+    uart_puts("\r\n");
+    uart_puts(">>> ");
+    nbCharReceived = uart_gets(strReceived, 10);                // <-
+    uart_puts("\r\n");
+    uart_putc((char)nbCharReceived+0x30);
+    uart_puts(" caracters send.");
+    uart_puts("\r\n");
+    uart_puts("you send : ");
+    uart_puts(strReceived);
+    
+    uart_puts("\r\n");
+    uart_puts("Type a string end with '\\r'.");
+    uart_puts("\r\n");
+    uart_puts(">>> ");
+    nbCharReceived = uart_gets_until(strReceived, '\r', 10);    // <-
+    uart_puts("\r\n");
+    uart_putc((char)nbCharReceived+0x30);
+    uart_puts(" caracters send.");
+    uart_puts("\r\n");
+    uart_puts("you send : ");
+    uart_puts(strReceived);
   }
-}
+  // FIN TEST
+  */
+  
+  
+  while(running)
+  {
+    //running = bltth_run();
+    running = bltth_parse();
+  }
+  
 
 
+  //uart_puts("\r\nGOOD BYE ! SEE YOU LATER.");
+  while(1);
+} 

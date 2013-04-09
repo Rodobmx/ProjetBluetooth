@@ -23,24 +23,26 @@ int main(void)
   board_setup();
   led_setup();
   bltth_setup();
-  motor_setup();
+  //motor_setup();
   
-  /*
+  
   // TESTS
   {
     char strReceived[64];
     char cReceived;
     uint8_t nbCharReceived, nbCharSend;
     
-    uart_puts("WELCOME MASTER ! I WILL SERVE YOU .\r\n");
-    
+    //uart_puts("WELCOME MASTER ! I WILL SERVE YOU .\r\n");
+    /*
+    // --------------------------------
     uart_puts("Sending a string.");
     uart_puts("\r\n");
     nbCharSend = uart_puts("TEST");                             // <-
     uart_puts("\r\n");
-    uart_putc((char)nbCharSend+0x30);
-    uart_puts(" caracters send.");
+    uart_puts("x caracters send.");
+    // --------------------------------
     
+    // --------------------------------
     uart_puts("\r\n");
     uart_puts("Type 1 caracter.");
     uart_puts("\r\n");
@@ -49,38 +51,52 @@ int main(void)
     
     uart_puts("\r\n");
     uart_puts("you send : ");
-    nbCharSend = uart_putc(cReceived);                         // <-
+    nbCharSend = uart_putc(cReceived);                          // <-
     uart_puts("\r\n");
-    uart_putc((char)nbCharSend+0x30);
-    uart_puts(" caracters send.");
-    
+    uart_puts("x caracters send.");
+    // --------------------------------
+
+    // --------------------------------
     uart_puts("\r\n");
-    uart_puts("Type a string.");
+    uart_puts("Type a string (length < 10).");
     uart_puts("\r\n");
     uart_puts(">>> ");
     nbCharReceived = uart_gets(strReceived, 10);                // <-
     uart_puts("\r\n");
-    uart_putc((char)nbCharReceived+0x30);
-    uart_puts(" caracters send.");
+    uart_puts("x caracters received.");
     uart_puts("\r\n");
     uart_puts("you send : ");
     uart_puts(strReceived);
-    
+    // --------------------------------
+
+    // --------------------------------
     uart_puts("\r\n");
-    uart_puts("Type a string end with '\\r'.");
+    uart_puts("Type a string end with '\\r' (uart_gets_until(...) ).");
     uart_puts("\r\n");
     uart_puts(">>> ");
     nbCharReceived = uart_gets_until(strReceived, '\r', 10);    // <-
     uart_puts("\r\n");
-    uart_putc((char)nbCharReceived+0x30);
-    uart_puts(" caracters send.");
+    uart_puts("x caracters received.");
     uart_puts("\r\n");
     uart_puts("you send : ");
     uart_puts(strReceived);
+    // --------------------------------
+
+    // --------------------------------
+    uart_puts("\r\n");
+    uart_puts("Type a string start with '-' and end with '\\r' (uart_gets_startWithAndUntil(...) ).");
+    uart_puts("\r\n");
+    uart_puts(">>> ");
+    nbCharReceived = uart_gets_startWithAndUntil(strReceived, '-', '\r', 10);    // <-
+    uart_puts("\r\n");
+    uart_puts("x caracters received.");
+    uart_puts("\r\n");
+    uart_puts("you send : ");
+    uart_puts(strReceived);
+    // --------------------------------
+    */
   }
   // FIN TEST
-  */
-  
   
   while(running)
   {
@@ -88,8 +104,6 @@ int main(void)
     running = bltth_parse();
   }
   
-
-
   //uart_puts("\r\nGOOD BYE ! SEE YOU LATER.");
   while(1);
 } 

@@ -34,6 +34,7 @@ void bltth_setup(void)
   uart_setup(96);
   bltthMode = BLTTH_WAITING_MODE;
   
+  // Clear rx buffer
   memset(rx_buff, ' ', sizeof(rx_buff) );
   rx_buff[sizeof(rx_buff)-1] = '\0';
 }
@@ -156,11 +157,8 @@ uint8_t bltth_run(void)
 uint8_t bltth_parse(void)
 {
   uint8_t ret = 1;
-                                                       
-                                                       
-  uart_gets_until(rx_buff, '\n', 15);                                   // Reception d'une trame
- 
-  if(rx_buff[0] == '-')
+  
+  if(uart_gets_startWithAndUntil(rx_buff, '-', '\n', 16) > 0)    // Si on a reçu des caracteres
   {
     switch(rx_buff[1])
     {
@@ -173,18 +171,19 @@ uint8_t bltth_parse(void)
         
       case 's':                                                         // ex :
       {                                                                 // "-s;"
-        motor_setSpd(0,0);                                              
+        //motor_setSpd(0,0);                                              
       }        
       break;
       
       case 'v':                                                         // ex :
       {                                                                 // "-v:*---,*---;"
-        char tmp_spd[4];                                                //  01234567890123456789
+        char    tmp_spd[4];                                             //  01234567890123456789
+        char    l_wheel_dir = ' ', r_wheel_dir = ' ';
         uint8_t l_wheel_spd = 0, r_wheel_spd = 0;
-        uint8_t l_wheel_dir = 0, r_wheel_dir = 0;
         
         
-        l_wheel_dir = rx_buff[3];
+        
+        l_wheel_dir = (char)rx_buff[3];
         tmp_spd[0]  = rx_buff[4];
         tmp_spd[1]  = rx_buff[5];
         tmp_spd[2]  = rx_buff[6];
@@ -193,7 +192,7 @@ uint8_t bltth_parse(void)
         l_wheel_spd = atoi(tmp_spd);
         
         
-        r_wheel_dir = rx_buff[8];
+        r_wheel_dir = (char)rx_buff[8];
         tmp_spd[0]  = rx_buff[9];
         tmp_spd[1]  = rx_buff[10];
         tmp_spd[2]  = rx_buff[11];
@@ -202,8 +201,8 @@ uint8_t bltth_parse(void)
         r_wheel_spd = atoi(tmp_spd);
         
         
-        motor_setDir(l_wheel_dir, r_wheel_dir);
-        motor_setSpd(l_wheel_spd, r_wheel_spd);
+        //motor_setDir(l_wheel_dir, r_wheel_dir);
+        //motor_setSpd(l_wheel_spd, r_wheel_spd);
       }
       break;
       
@@ -212,6 +211,7 @@ uint8_t bltth_parse(void)
     }
   }
   
+  // Clear rx buffer
   memset(rx_buff, ' ', sizeof(rx_buff) );
   rx_buff[sizeof(rx_buff)-1] = '\0';
   

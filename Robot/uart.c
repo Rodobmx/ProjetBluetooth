@@ -55,8 +55,8 @@ void uart_setup(uint8_t baudrate)
     
     case 11:    // 115 200 Baud
       // TODO
-      UCA0BR0 = 9;			// 1 MHz, 9600 -> 8.6
-      UCA0BR1 = 0;			// 1 MHz, 9600
+      //UCA0BR0 = 9;			// 1 MHz, 9600 -> 8.6
+      //UCA0BR1 = 0;			// 1 MHz, 9600
     break;
     
     default:
@@ -92,14 +92,12 @@ uint8_t uart_putc(unsigned char c)
     UCA0TXBUF = c;
 */
   
-  uint8_t nbCharSend = 0;
-  
   tx_char = c;                  // Put the char into the tx_char
   IE2 |= UCA0TXIE; 		// Enable USCI_A0 TX interrupt
   while(tx_flag == 1);		// Have to wait for the TX buffer
   tx_flag = 1;			// Reset the tx_flag
   
-  return nbCharSend++;
+  return 1;
 }
 
 // ------------------------------------
@@ -159,7 +157,7 @@ uint8_t uart_gets(char* str, int length)
 }
 
 // ------------------------------------
-// Fonction    : uart_...
+// Fonction    : uart_gets_until
 // Description : ...
 //               ...
 // Param(s)    : ...
@@ -176,13 +174,49 @@ uint8_t uart_gets_until(char* str, char stopch, uint8_t maxLength)
     c = uart_getc();
     str[i] = c;
     
-    if (c == stopch)
+    if (c == stopch){
+      i++;
       break;	// we're done if stopchar is found
-    
+    }  
   }
-  str[++i] = '\0';
+  str[i] = '\0';      // "++i" pour garder le stopch
 
-  return i--;
+  return i;
+}
+
+// ------------------------------------
+// Fonction    : uart_gets_startWithAndUntil
+// Description : ...
+//               ...
+// Param(s)    : ...
+//               ...
+// Output      : ...
+// ------------------------------------
+uint8_t uart_gets_startWithAndUntil(char* str, char startch, char stopch, uint8_t maxLength)
+{
+  uint8_t i;
+  char c;
+
+  do
+  {
+    c = uart_getc();
+  }while(c != startch);
+  
+  str[0] = c;
+  
+  for(i = 1; i < (maxLength); i++)
+  {
+    c = uart_getc();
+    str[i] = c;
+    
+    if (c == stopch){
+      i++;
+      break;	// we're done if stopchar is found
+    }
+  }
+  str[i] = '\0';
+
+  return i;
 }
 
 // ------------------------------------

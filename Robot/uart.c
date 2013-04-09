@@ -55,8 +55,8 @@ void uart_setup(uint8_t baudrate)
     
     case 11:    // 115 200 Baud
       // TODO
-      //UCA0BR0 = 9;			// 1 MHz, 9600 -> 8.6
-      //UCA0BR1 = 0;			// 1 MHz, 9600
+      UCA0BR0 = 9;			// 1 MHz, 9600 -> 8.6
+      UCA0BR1 = 0;			// 1 MHz, 9600
     break;
     
     default:

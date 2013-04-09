@@ -48,12 +48,12 @@ char rx_buff[20];
 // --------------------------
 void bltth_setup(void)
 {
-  uart_setup(96);
+  uart_setup(11);
   bltthMode = BLTTH_WAITING_MODE;
   
   // Clear rx buffer
-  memset(rx_buff, ' ', sizeof(rx_buff) );
-  rx_buff[sizeof(rx_buff)-1] = '\0';
+  //memset(rx_buff, ' ', sizeof(rx_buff) );
+  //rx_buff[sizeof(rx_buff)-1] = '\0';
 }
 
 // --------------------------
@@ -174,8 +174,8 @@ uint8_t bltth_run(void)
 uint8_t bltth_parse(void)
 {
   uint8_t ret = 1;
-  uint8_t buffer[TRAME_MAX_SIZE];/* = "-v:+100,-100;"; test*/
-  if(/* 1) test */uart_gets_startWithAndUntil(buffer, TRAME_CAR_START, TRAME_CAR_END, TRAME_MAX_SIZE) > 0)    // Si on a reçu des caracteres
+  char buffer[TRAME_MAX_SIZE];/* = "-v:+100,-100;"; test*/
+  if(uart_gets_startWithAndUntil(buffer, TRAME_CAR_START, TRAME_CAR_END, TRAME_MAX_SIZE) > 0)    // Si on a reçu des caracteres
   {
     switch(buffer[TRAME_CMD_INDEX])
     {

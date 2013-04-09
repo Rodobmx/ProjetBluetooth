@@ -102,6 +102,7 @@ int main(void)
   {
     //running = bltth_run();
     running = bltth_parse();
+    //uart_putc('Z');
   }
   
   //uart_puts("\r\nGOOD BYE ! SEE YOU LATER.");

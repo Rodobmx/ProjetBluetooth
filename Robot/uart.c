@@ -17,8 +17,8 @@
 
 
 // Variables
-unsigned int  tx_flag;			// Flag indicate that a byte is sending.
-unsigned char tx_char;			//
+//unsigned int  tx_flag;			// Flag indicate that a byte is sending.
+//unsigned char tx_char;			//
 
 unsigned int  rx_flag;			// Flag indicate that a byte is receiving.
 unsigned char rx_char;			//
@@ -75,7 +75,6 @@ void uart_setup(uint8_t baudrate)
   IE2 |= UCA0RXIE;                      // Enable USCI_A0 RX interrupt
   
   rx_flag = 0;				// Set rx_flag to 0
-  tx_flag = 0;				// Set tx_flag to 0
   
 }
 
@@ -91,12 +90,16 @@ uint8_t uart_putc(unsigned char c)
   while (!(IFG2 & UCA0TXIFG));
     UCA0TXBUF = c;
 */
+  while(UCA0STAT & UCBUSY);
+  UCA0TXBUF = c; 
   
+/*      Une interruption sert à detecté un changement extérieur, à l'interieur du soft elle te sert à rien.
+        Comme sa tu perd du temps et tu augmente la taille du code bêtement.
   tx_char = c;                  // Put the char into the tx_char
   IE2 |= UCA0TXIE; 		// Enable USCI_A0 TX interrupt
   while(tx_flag == 1);		// Have to wait for the TX buffer
   tx_flag = 1;			// Reset the tx_flag
-  
+  */
   return 1;
 }
 
@@ -112,7 +115,8 @@ uint8_t uart_puts(char* str)
   while(str[i] != '\0')
   {
     uart_putc(str[i++]);
-    while(UCA0STAT & UCBUSY);	// Wait until the last byte is completely sent
+    /* Cette ligne ne doit pas apparaitre la, mais dans le putc, il n'y à aucune vérification dans le putc (enfin maintenant si) */
+    //while(UCA0STAT & UCBUSY);	// Wait until the last byte is completely sent
   }
   return i;
 }
@@ -195,7 +199,7 @@ uint8_t uart_gets_until(char* str, char stopch, uint8_t maxLength)
 uint8_t uart_gets_startWithAndUntil(char* str, char startch, char stopch, uint8_t maxLength)
 {
   uint8_t i;
-  char c;
+  char c;/* Pourquoi l'utilisation d'une variable supplémentaire ? (double les affectations) */
 
   do
   {
@@ -210,11 +214,11 @@ uint8_t uart_gets_startWithAndUntil(char* str, char startch, char stopch, uint8_
     str[i] = c;
     
     if (c == stopch){
-      i++;
+      //i++;
       break;	// we're done if stopchar is found
     }
   }
-  str[i] = '\0';
+  //str[i] = '\0'; On ne traite pas des string, innutile d'avoir un '\0' en fin de trame
 
   return i;
 }
@@ -222,6 +226,7 @@ uint8_t uart_gets_startWithAndUntil(char* str, char startch, char stopch, uint8_
 // ------------------------------------
 // UART TX interrupt routine.
 // ------------------------------------
+/* Interruption sur un envoi inutile
 #pragma vector = USCIAB0TX_VECTOR
 __interrupt void USCI0TX_ISR(void)
 {
@@ -229,7 +234,7 @@ __interrupt void USCI0TX_ISR(void)
   tx_flag = 0;			// ACK the tx_flag
   IE2 &= ~UCA0TXIE; 		// Turn off the interrupt to save CPU
 }
-
+*/
 // ------------------------------------
 // UART RX interrupt routine.
 // ------------------------------------

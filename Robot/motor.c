@@ -20,21 +20,21 @@
 void motor_setup(void)
 {
   // 0 dec +> 00000000
-  P1DIR  |= BIT2 + BIT4;                // 0xFF-BIT5-BIT1-BIT6;//RoueA_BIT + RoueB_BIT + BIT3; 00000010100
-  P1SEL  |= BIT2 + BIT4;                // 0xFF-BIT5-BIT1-BIT6;// RoueA_BIT + RoueB_BIT + BIT3;
-  P1SEL2 |= BIT4;
+  P2DIR  |= BIT1 + BIT4;                // 0xFF-BIT5-BIT1-BIT6;//RoueA_BIT + RoueB_BIT + BIT3; 00000010100
+  P2SEL  |= BIT1 + BIT4;                // 0xFF-BIT5-BIT1-BIT6;// RoueA_BIT + RoueB_BIT + BIT3;
+  P2SEL2 &= ~(BIT1 + BIT4);
   
-  P2DIR |= BIT1 | BIT2;
-  P2DIR &= ~(BIT3 + BIT4);
+  //P2DIR |= BIT1 | BIT2;
+  //P2DIR &= ~(BIT3 + BIT4);
   
   //TACCR0 = 64;
-  TACCTL0  = CCIE;
-  TACCR0   = 1000;                      // 65536-1; //32us = 31.25kHz
-  TACCTL1 |= OUTMOD_7;
-  TACCR1   = 0;                         // consigne_RoueA/2*1024;
-  TACCTL2 |= OUTMOD_7;
-  TACCR2   = 0;                         // *1024
-  TACTL   |= TASSEL_2 | MC_1 | ID_0;    // ACLK, upmode
+  TA1CCTL0  = CCIE;
+  TA1CCR0   = 1000;                      // 65536-1; //32us = 31.25kHz
+  TA1CCTL1 |= OUTMOD_7;
+  TA1CCR1   = 0;                         // consigne_RoueA/2*1024;
+  TA1CCTL2 |= OUTMOD_7;
+  TA1CCR2   = 0;                         // *1024
+  TA1CTL   |= TASSEL_2 | MC_1 | ID_3;    // S%CLK, upmode
 }
 
 // --------------------------
@@ -57,6 +57,6 @@ void motor_setDir(char l_wheel, char r_wheel)
 // --------------------------
 void motor_setSpd(uint8_t l_wheel, uint8_t r_wheel)
 {
-  TACCR1 = l_wheel*10;
-  TACCR2 = r_wheel*10;
+  TA1CCR1 = l_wheel*10;
+  TA1CCR2 = r_wheel*10;
 }

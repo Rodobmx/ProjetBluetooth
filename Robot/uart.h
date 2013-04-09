@@ -1,4 +1,4 @@
-// 
+//
 // Filename : uart.h
 // Author   : KevinM
 // Modified : 05/04/2012

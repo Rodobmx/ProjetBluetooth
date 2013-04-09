@@ -23,14 +23,14 @@ int main(void)
   board_setup();
   led_setup();
   bltth_setup();
-  //motor_setup();
+  motor_setup();
   
   
   // TESTS
   {
-    char strReceived[64];
-    char cReceived;
-    uint8_t nbCharReceived, nbCharSend;
+    //char strReceived[64];
+    //char cReceived;
+    //uint8_t nbCharReceived, nbCharSend;
     
     //uart_puts("WELCOME MASTER ! I WILL SERVE YOU .\r\n");
     /*

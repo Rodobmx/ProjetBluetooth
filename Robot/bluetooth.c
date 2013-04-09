@@ -16,6 +16,23 @@
 #include <io430g2553.h>
 
 
+#define TRAME_CAR_START '-'             // Caractere debut de trame
+#define TRAME_CAR_SEPARCMD ':'          // caractere separation commande
+#define TRAME_CAR_END ';'               // caractere fin de trame
+#define TRAME_CMD_INDEX 1               // index du caractere de commande
+#define TRAME_SENSA_INDEX 3             // index signe roue A
+#define TRAME_SENSB_INDEX 8             // index signe roue B
+#define TRAME_CAR_SEPAR ','
+#define TRAME_CAR_SENS_POS '+'
+#define TRAME_CAR_SENS_NEG '-'
+#define TRAME_CAR_VITESSE 'v'            // -v:+100,+100;
+#define TRAME_CAR_LED 'l'               // -l:g,d;
+#define TRAME_LEDG_INDEX 3             // index led gauche
+#define TRAME_LEDD_INDEX 5             // index led droite
+#define TRAME_CAR_AU 's'                // Arret Urgence 
+#define TRAME_MAX_SIZE  16
+
+
 // Variables
 e_bltthMode bltthMode;
 
@@ -157,63 +174,51 @@ uint8_t bltth_run(void)
 uint8_t bltth_parse(void)
 {
   uint8_t ret = 1;
-  
-  if(uart_gets_startWithAndUntil(rx_buff, '-', '\n', 16) > 0)    // Si on a reçu des caracteres
+  uint8_t buffer[TRAME_MAX_SIZE];/* = "-v:+100,-100;"; test*/
+  if(/* 1) test */uart_gets_startWithAndUntil(buffer, TRAME_CAR_START, TRAME_CAR_END, TRAME_MAX_SIZE) > 0)    // Si on a reçu des caracteres
   {
-    switch(rx_buff[1])
+    switch(buffer[TRAME_CMD_INDEX])
     {
-      case 'l':                                                         // ex :
-      {                                                                 // "-l:1,0;"
-        if(rx_buff[3] == '1') led_red_toggle();                         //  0123456789
-        if(rx_buff[5] == '1') led_green_toggle();
-      }
-      break;
-        
-      case 's':                                                         // ex :
-      {                                                                 // "-s;"
-        //motor_setSpd(0,0);                                              
-      }        
-      break;
-      
-      case 'v':                                                         // ex :
-      {                                                                 // "-v:*---,*---;"
-        char    tmp_spd[4];                                             //  01234567890123456789
-        char    l_wheel_dir = ' ', r_wheel_dir = ' ';
-        uint8_t l_wheel_spd = 0, r_wheel_spd = 0;
-        
-        
-        
-        l_wheel_dir = (char)rx_buff[3];
-        tmp_spd[0]  = rx_buff[4];
-        tmp_spd[1]  = rx_buff[5];
-        tmp_spd[2]  = rx_buff[6];
-        tmp_spd[3]  = '\0';
+      case TRAME_CAR_VITESSE: // Type trame recue 2 vitesse des roues   
+        {
+          motor_setDir(buffer[TRAME_SENSA_INDEX],buffer[TRAME_SENSB_INDEX]);
           
-        l_wheel_spd = atoi(tmp_spd);
+          unsigned vitesseA=0, vitesseB=0;
+          
+          /* On peut réecrire la fonction atoi pour prendre que 3 caractere si tu veux, sinon comme sa c'est plus rapide que mettre en temp */
+          vitesseA = (buffer[TRAME_SENSA_INDEX+1]-48)*100 +(buffer[TRAME_SENSA_INDEX+2]-48)*10 + (buffer[TRAME_SENSA_INDEX+3]-48);
+          vitesseB = (buffer[TRAME_SENSB_INDEX+1]-48)*100 +(buffer[TRAME_SENSB_INDEX+2]-48)*10 + (buffer[TRAME_SENSB_INDEX+3]-48);
+          
+          motor_setSpd(vitesseA,vitesseB);
+        }      
+        break;
+   
+      case TRAME_CAR_AU:
+        TA1CCR1 = 0;
+        TA1CCR2 = 0;
+        break;
+                  
+      case TRAME_CAR_LED:
+        if(buffer[TRAME_LEDG_INDEX])
+          led_green_on();
+        else
+          led_green_off();
         
-        
-        r_wheel_dir = (char)rx_buff[8];
-        tmp_spd[0]  = rx_buff[9];
-        tmp_spd[1]  = rx_buff[10];
-        tmp_spd[2]  = rx_buff[11];
-        tmp_spd[3]  = '\0';
-        
-        r_wheel_spd = atoi(tmp_spd);
-        
-        
-        //motor_setDir(l_wheel_dir, r_wheel_dir);
-        //motor_setSpd(l_wheel_spd, r_wheel_spd);
-      }
-      break;
-      
+        if(buffer[TRAME_LEDD_INDEX])
+           led_red_on();
+        else
+          led_red_off();
+        break;
+                    
       default:
-      break;
-    }
+        break;
+      
+    } 
   }
-  
+  /* Inutile, la lecture est une tache bloquante (attente d'un caractere), on ne peut donc pas revenir sur une trame recue.
   // Clear rx buffer
   memset(rx_buff, ' ', sizeof(rx_buff) );
   rx_buff[sizeof(rx_buff)-1] = '\0';
-  
+  */
   return ret;
 }

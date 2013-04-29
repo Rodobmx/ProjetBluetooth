@@ -101,8 +101,8 @@ int main(void)
   while(running)
   {
     //running = bltth_run();
-    running = bltth_parse();
-    //uart_putc('Z');
+    //running = bltth_parse();
+    uart_putc('^');
   }
   
   //uart_puts("\r\nGOOD BYE ! SEE YOU LATER.");

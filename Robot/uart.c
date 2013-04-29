@@ -35,8 +35,8 @@ void uart_setup(uint8_t baudrate)
 {
   //int val;
   
-  IE2 &= ~UCA0RXIE;			// Disable USCI_A0 RX interrupt
-  UCA0CTL1 |= UCSWRST;			// Put UCSWRST offline for reset
+  IE2 |= UCA0RXIE;			// Disable USCI_A0 RX interrupt
+  UCA0CTL1 &= ~UCSWRST;			// Put UCSWRST offline for reset
   
   P1SEL  |= (RXD + TXD);                // Set up the I/O
   P1SEL2 |= (RXD + TXD);                // TXD and RXD
@@ -62,14 +62,16 @@ void uart_setup(uint8_t baudrate)
     default:
     break;
   }
-  
+  /*
   UCA0CTL0 &= ~UCPEN;                   // UCPEN : Parity enable/disable ;
   UCA0CTL0 &= ~UCPAR;                   // UCPAR : nb parity bits
   UCA0CTL0 &= ~UCMSB;                   // UCMSB : MSB/LSB first (LSB first)
   
   UCA0CTL0 &= ~UC7BIT;                  // UC7BIT : nb data bits (8 bits)
   UCA0CTL0 &= ~UCSPB;                   // UCSPB :  nb stop bits (1 bit)
-  
+  */
+  UCA0CTL0 &= ~(UCPEN + UCPAR + UCMSB + UC7BIT + UCSPB + UCMODE0);
+  UCA0CTL1 |= UCSSEL_2; // Choix de la clock à 1 Mhz
   
   UCA0CTL1 &= ~UCSWRST ;                // USCI state machine , desactivation du reset logiciel
   IE2 |= UCA0RXIE;                      // Enable USCI_A0 RX interrupt

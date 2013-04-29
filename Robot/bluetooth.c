@@ -48,7 +48,7 @@ char rx_buff[20];
 // --------------------------
 void bltth_setup(void)
 {
-  uart_setup(11);
+  uart_setup(96);
   bltthMode = BLTTH_WAITING_MODE;
   
   // Clear rx buffer

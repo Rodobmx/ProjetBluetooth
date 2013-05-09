@@ -23,13 +23,13 @@
 # ; : fin de trame
 
 
-# -s; : arret d'urgence
+# -s; : arret durgence
 
-# -v:sdd,sgg; : envoie de vitesse
-# -v:+80,-80;
+# -v:sddd,sggg; : envoie de vitesse
+# -v:+080,-080;
 
 # -l:r,v; : allumer led
-# r,v : 0 ou 1 (etein, allumé)
+# r,v : 0 ou 1 (eteint, allume)
 # ==============
 
 
@@ -63,125 +63,178 @@ def main():
 	#Initialisation de la bibliotheque Pygame
 	pygame.init()
 
-	#On compte les joysticks
+	#On compte le nb de joysticks
+	print("- Detection de la manette en cours ...")
 	nb_joysticks = pygame.joystick.get_count()
 	if nb_joysticks < 1:
-		print("! Aucune manette de branchée")
+		print("! Aucune manette de branchee")
 		print("  Veuillez brancher une manette et recommencer.")
 		sys.exit()
 	else:
+		print("  MANETTE OK")
+
+	# on cherche les sports com disponibles
+	print("- Scan des ports com en cours ...")
+	list = scan_serial_ports()
+	if len(list) < 1:
+		print("! Aucun port com détectes")
+		sys.exit()
+	else:
+		print("  PORT SERIE OK")
+
+	# on affiche les ports com disponibles
+	n=0
+	print("  Ports com disponibles :")
+	for s in list:
+		print("    {:d} {!s}".format(n, s))
+		n = n+1
+		
+	# on demande a lutilisateur de saisir le nom du port com souhaité
+	print("Veuillez saisir le port port que vous voulez utiliser")
+	# Verif saisie
+	selected_port = -1
+	while selected_port < 0 :
+		selected_port = input("> ")
+		try:
+			selected_port = int(selected_port)
+		except ValueError:
+			print(" ! Vous n'avez pas saisi de nombre")
+			selected_port = -1
+			continue
+		if ((selected_port < 0) or (selected_port > 256)):
+			print(" ! Vous avez saisi un port ds la limite des ports disponibles")
+			selected_port = -1
+
+
+
+	# Configuration de la connexion
+	ser = serial.Serial(
+		port = str(list[selected_port][1]),
+		baudrate = 9600,
+		parity = serial.PARITY_NONE,
+		stopbits = serial.STOPBITS_ONE,
+		bytesize = serial.EIGHTBITS
+	)
+
+	try:
+		ser.open()
+	except serial.SerialException as e:
+		print("! Erreur lors de l'ouverture du port serie : " + str(e))
+		
+	if not ser.isOpen():
+		print("! Le port serie n'est pas ouvert")
+		sys.exit()
+	else:
+		print("  Port ouvert on peut envoyer qq chose")
+		
 		mon_joystick = pygame.joystick.Joystick(0)	#Et on en cree un s'il y a en au moins un
 		mon_joystick.init()							#Initialisation
 
-		ser = serial.Serial(
-			port = "COM27",
-			baudrate = 9600,
-			parity = serial.PARITY_NONE,
-			stopbits = serial.STOPBITS_ONE,
-			bytesize = serial.EIGHTBITS
-		)
+		
+		joy_l_val = 0    	# la valeur du joystick de gauche
+		joy_l_dir = '*'		# le signe  du joystick de gauche
+		joy_l_str = '---'
 
-		try:
-			ser.open()
-		except serial.SerialException as e:
-			print("! Erreur lors de l'ouverture du port serie : " + str(e))
-			
-		if not ser.isOpen():
-			print("! Le port serie n'est pas ouvert")
-			sys.exit()
-		else:
-			print("  Port ouvert on peut envoyer qq chose")
-			
-			#sendCmd("TEST", ser)
+		joy_r_val = 0    	# la valeur du joystick de droite
+		joy_r_dir = '*'      # le signe  du joystick de droite
+		joy_r_str = '---'
+
+		led_l = 0           # la valeur pour letat de la led de gauche
+		led_r = 0           # la valeur pour letat de la led de droite
 
 
-			joy_l_val = 0    	# la valeur du joystick de gauche
-			joy_l_dir = '*'		# le signe  du joystick de gauche
-			joy_l_str = '---'
-
-			joy_r_val = 0    	# la valeur du joystick de droite
-			joy_r_dir = '*'      # le signe  du joystick de droite
-			joy_r_str = '---'
-
-			led_l = 0           # la valeur pour l'état de la led de gauche
-			led_r = 0           # la valeur pour l'état de la led de droite
+		toSend = False		# boolean indiquant qu qq chose est a envoyer
+		trame_to_send = ''  # la chaine de caractere qui sera transmise
 
 
-			toSend = False		# boolean indiquant qu qq chose est à envoyer
-			trame_to_send = ''  # la chaine de caractere qui sera transmise
+		# ...
+		clock = pygame.time.Clock()
 
+		# Variable qui continue la boucle si = True, stoppe si = False
+		running = True
 
-			# ...
-			clock = pygame.time.Clock()
+		#Boucle infinie
+		while running:
+			for event in pygame.event.get( ):	#On parcours la liste de tous les evenements recus
+				if event.type == QUIT:     								#Si un de ces evenements est de type QUIT
+					running = False   									#On arrete la boucle
 
-			# Variable qui continue la boucle si = True, stoppe si = False
-			running = True
+				if event.type == JOYBUTTONDOWN:
+					if event.button == SEL:
+						trame_to_send = "-s;"
+						toSend = True
+						running = False
 
-			#Boucle infinie
-			while running:
-				for event in pygame.event.get( ):	#On parcours la liste de tous les evenements recus
-					if event.type == QUIT:     								#Si un de ces evenements est de type QUIT
-						running = False   									#On arrete la boucle
-
-					if event.type == JOYBUTTONDOWN:
-						if event.button == SEL:
-							trame_to_send = "-s;"
-							toSend = True
-							running = False
-
-						if event.button == L_1:
-							led_l = '1'
-							toSend = True
-							
-						if event.button == R_1:
-							led_r = '1'
-							toSend = True
-
-						trame_to_send = "-l:" + str(led_l) + ',' + str(led_r) + ';'
-
-
-					if event.type == JOYAXISMOTION:
-						if event.axis == JOY_R_UD:
-							if event.value < 0:
-								joy_r_dir = '+'
-							else:
-								joy_r_dir = '-'
-
-							joy_r_val = int(abs(mon_joystick.get_axis(JOY_R_UD) * 100))
-							joy_r_str = convStrOn3Digits(joy_r_val)
-							toSend = True
-
-						if event.axis == JOY_L_UD:
-							if event.value < 0:
-								joy_l_dir = '+'
-							else:
-								joy_l_dir = '-'
-
-							joy_l_val = int(abs(mon_joystick.get_axis(JOY_L_UD) * 100))
-							joy_l_str = convStrOn3Digits(joy_l_val)
-							toSend = True
-
-						trame_to_send = "-v:" + str(joy_l_dir) + str(joy_l_str) + ',' + str(joy_r_dir) + str(joy_r_str) + ';'
+					if event.button == L_1:
+						led_l = '1'
+						toSend = True
 						
-					if toSend is True:
-						sendCmd(trame_to_send, ser)
-						toSend = False
-						led_r = '0'
-						led_l = '0'
+					if event.button == R_1:
+						led_r = '1'
+						toSend = True
+
+					trame_to_send = "-l:" + str(led_l) + ',' + str(led_r) + ';'
 
 
-				clock.tick(20)
-			
-			# running = False	
-			ser.close()
+				if event.type == JOYAXISMOTION:
+					if event.axis == JOY_R_UD:
+						if event.value < 0:
+							joy_r_dir = '+'
+						else:
+							joy_r_dir = '-'
+
+						joy_r_val = int(abs(mon_joystick.get_axis(JOY_R_UD) * 100))
+						joy_r_str = convStrOn3Digits(joy_r_val)
+						toSend = True
+
+					if event.axis == JOY_L_UD:
+						if event.value < 0:
+							joy_l_dir = '+'
+						else:
+							joy_l_dir = '-'
+
+						joy_l_val = int(abs(mon_joystick.get_axis(JOY_L_UD) * 100))
+						joy_l_str = convStrOn3Digits(joy_l_val)
+						toSend = True
+
+					trame_to_send = "-v:" + str(joy_l_dir) + str(joy_l_str) + ',' + str(joy_r_dir) + str(joy_r_str) + ';'
+					
+				if toSend is True:
+					sendCmd(trame_to_send, ser)
+					toSend = False
+					led_r = '0'
+					led_l = '0'
+
+
+			clock.tick(20)
+		
+		# running = False	
+		ser.close()
 		
 
 # Definitions
+def scan_serial_ports():
+	"""
+	Description : A function that tries to list serial ports on most common platforms
+	RESTRICTION : compatible seulement avec les ordinateurs de type WINDOWS
+	"""
+	# Scan for available ports
+	available_ports = []
+	for i in range(256):
+		try:
+			s = serial.Serial(i)
+			available_ports.append((i, s.portstr))
+			s.close()
+		except serial.SerialException:
+			pass
+	return available_ports
+
+
 def sendCmd(cmd, ser):
 	"""
-	Description : Transmet une chaine de caractères sur la liaison série.
+	Description : Transmet une chaine de caracteres sur la liaison serie.
 
-	Param(s) : cmd, la chaine de caractères à envoyer
+	Param(s) : cmd, la chaine de caracteres a envoyer
 			   ser, ...
 
 	Output : Nothing
@@ -194,10 +247,10 @@ def sendCmd(cmd, ser):
 
 def convStrOn3Digits(value):
 	"""
-	Description : Converti une chaine de caractères, représentant un nb compris entre 0 et 100
+	Description : Converti une chaine de caracteres, representant un nb compris entre 0 et 100
 				  en une chaine de caracteres, sur 3 digits
 
-	Param(s) : value, la valeur à Convertir
+	Param(s) : value, la valeur a Convertir
 
 	Output : Nothing
 	"""

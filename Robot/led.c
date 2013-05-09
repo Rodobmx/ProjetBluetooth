@@ -25,7 +25,8 @@
 void led_setup(void)
 {
    P1DIR |= LEDR | LEDG;        // bits 0 et 6 du port 1 sont des sorties
-   
+   P1SEL &= ~(LEDR | LEDG);
+   P1SEL2 &= ~(LEDR | LEDG);
    led_red_off();               // Extinction des leds
    led_green_off();             // ...
 }

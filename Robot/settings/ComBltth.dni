@@ -1,3 +1,30 @@
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[State Storage]
+Control Register=0
+[Sequencer]
+Control Register=0
+NextState0=0
+NextState1=0
+[Action Register]
+Break=2
+State Storage=1
+[DebugChecksum]
+Checksum=-1122597026
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[EEM State Storage]
+Buffer=BAAAAAAADAAAAAAAAAAAAAAA
 [InterruptLog]
 LogEnabled=0
 SumEnabled=0
@@ -11,16 +38,6 @@ SumEnabled=0
 GraphEnabled=0
 ShowTimeLog=1
 ShowTimeSum=1
-[Stack]
-FillEnabled=0
-OverflowWarningsEnabled=1
-WarningThreshold=90
-SpWarningsEnabled=1
-WarnLogOnly=1
-UseTrigger=1
-TriggerName=main
-LimitSize=0
-ByteLimit=50
 [Breakpoints2]
 Count=0
 [Interrupts]
@@ -35,21 +52,6 @@ ActionState=1
 [Trace1]
 Enabled=0
 ShowSource=1
-[State Storage]
-Control Register=0
-[Sequencer]
-Control Register=0
-NextState0=0
-NextState1=0
-[Action Register]
-Break=2
-State Storage=1
-[DebugChecksum]
-Checksum=-1167367400
-[CallStack]
-ShowArgs=0
-[Disassembly]
-MixedMode=1
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

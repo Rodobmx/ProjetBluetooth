@@ -21,7 +21,7 @@ void board_setup(void)
 {
   // Arret du watchdog
   WDTCTL = WDTPW + WDTHOLD;
-  
+  IE1 &= ~(NMIIE | WDTIE);
   // DCO calibration at 1MHz
   if (CALBC1_1MHZ ==0xFF || CALDCO_1MHZ == 0xFF)                                     
   {  
@@ -32,6 +32,8 @@ void board_setup(void)
   BCSCTL1 = CALBC1_1MHZ;                    // Set range
   DCOCTL  = CALDCO_1MHZ;                    // Set DCO step + modulation  
   
+  //BCSCTL1 |=  SELS;
+  //__bis_SR_register(GIE);
   __enable_interrupt();                     // Enable interrupts
 }
 

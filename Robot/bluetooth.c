@@ -1,7 +1,5 @@
 // 
 // Filename : bluetooth.c
-// Author   : KevinM
-// Modified : 05/04/2012
 //
 
 
@@ -25,8 +23,8 @@
 #define TRAME_CAR_SEPAR ','
 #define TRAME_CAR_SENS_POS '+'
 #define TRAME_CAR_SENS_NEG '-'
-#define TRAME_CAR_VITESSE 'v'            // -v:+100,+100;
-#define TRAME_CAR_LED 'l'               // -l:g,d;
+#define TRAME_CAR_VITESSE 'v'            // -v:+100,+100; (
+#define TRAME_CAR_LED 'l'               // -l:g,d; -l:0,0;  -l:1,1;
 #define TRAME_LEDG_INDEX 3             // index led gauche
 #define TRAME_LEDD_INDEX 5             // index led droite
 #define TRAME_CAR_AU 's'                // Arret Urgence 
@@ -48,7 +46,7 @@ char rx_buff[20];
 // --------------------------
 void bltth_setup(void)
 {
-  uart_setup(96);
+  uart_setup(11);
   bltthMode = BLTTH_WAITING_MODE;
   
   // Clear rx buffer
@@ -175,6 +173,8 @@ uint8_t bltth_parse(void)
 {
   uint8_t ret = 1;
   char buffer[TRAME_MAX_SIZE];/* = "-v:+100,-100;"; test*/
+  while(1)
+  {
   if(uart_gets_startWithAndUntil(buffer, TRAME_CAR_START, TRAME_CAR_END, TRAME_MAX_SIZE) > 0)    // Si on a reçu des caracteres
   {
     switch(buffer[TRAME_CMD_INDEX])
@@ -190,6 +190,7 @@ uint8_t bltth_parse(void)
           vitesseB = (buffer[TRAME_SENSB_INDEX+1]-48)*100 +(buffer[TRAME_SENSB_INDEX+2]-48)*10 + (buffer[TRAME_SENSB_INDEX+3]-48);
           
           motor_setSpd(vitesseA,vitesseB);
+          
         }      
         break;
    
@@ -199,21 +200,22 @@ uint8_t bltth_parse(void)
         break;
                   
       case TRAME_CAR_LED:
-        if(buffer[TRAME_LEDG_INDEX])
-          led_green_on();
-        else
+        if(buffer[TRAME_LEDG_INDEX] == '1')
+          led_green_toggle();
+        /*else
           led_green_off();
-        
-        if(buffer[TRAME_LEDD_INDEX])
-           led_red_on();
-        else
-          led_red_off();
+        */
+        if(buffer[TRAME_LEDD_INDEX]== '1')
+           led_red_toggle();
+        /*else
+          led_red_off();*/
         break;
                     
       default:
         break;
       
     } 
+  }
   }
   /* Inutile, la lecture est une tache bloquante (attente d'un caractere), on ne peut donc pas revenir sur une trame recue.
   // Clear rx buffer

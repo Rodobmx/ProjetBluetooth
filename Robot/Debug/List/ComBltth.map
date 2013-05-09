@@ -2,7 +2,7 @@
 #                                                                              #
 #      IAR Universal Linker V5.3.2.26                                          #
 #                                                                              #
-#           Link time     =  10/Apr/2013  22:31:14                             #
+#           Link time     =  07/May/2013  11:56:44                             #
 #           Target CPU    =  MSP430                                            #
 #           List file     =  C:\Users\Rodolphe\Documents\Esigelec\Dominante\Ap #
 #                            pli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Li #
@@ -138,14 +138,20 @@ Absolute parts
   ======================
 DATA16_AN
   Relative segment, address: 0194 - 0195 (0x2 bytes), align: 0
-  Segment part 1. ROOT.       Intra module refs:   motor_setup (motor)
+  Segment part 1. ROOT.       Intra module refs:   bltth_parse
+                                                   main (main)
+                                                   motor_setSpd (motor)
+                                                   motor_setup (motor)
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            TA1CCR1                 0194 
     -------------------------------------------------------------------------
 DATA16_AN
   Relative segment, address: 0196 - 0197 (0x2 bytes), align: 0
-  Segment part 2. ROOT.       Intra module refs:   motor_setup (motor)
+  Segment part 2. ROOT.       Intra module refs:   bltth_parse
+                                                   main (main)
+                                                   motor_setSpd (motor)
+                                                   motor_setup (motor)
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            TA1CCR2                 0196 
@@ -158,13 +164,22 @@ DATA16_Z
            bltthMode               0204 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C158 - C165 (0xe bytes), align: 1
+  Relative segment, address: C2D4 - C2E1 (0xe bytes), align: 1
   Segment part 7.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           bltth_setup             C158            main (main)
+           bltth_setup             C2D4            main (main)
                calls direct
                CSTACK = 00000000 ( 00000002 )
+    -------------------------------------------------------------------------
+<CODE> 1 (was CODE)
+  Relative segment, address: C02A - C0EF (0xc6 bytes), align: 1
+  Segment part 6.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           bltth_parse             C02A            main (main)
+               calls direct
+               CSTACK = 00000000 ( 00000012 )
 
     *************************************************************************
 
@@ -175,7 +190,10 @@ DATA16_Z
   ======================
 DATA16_AN
   Relative segment, address: 0021 - 0021 (0x1 bytes), align: 0
-  Segment part 1. ROOT.       Intra module refs:   led_setup
+  Segment part 1. ROOT.       Intra module refs:   led_green_on
+                                                   led_green_toggle
+                                                   led_red_toggle
+                                                   led_setup
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_P1OUT                0021 
@@ -195,19 +213,67 @@ DATA16_AN
            P1DIR                   0022 
            P1DIR_bit               0022 
     -------------------------------------------------------------------------
-<CODE> 1 (was CODE)
-  Relative segment, address: C112 - C119 (0x8 bytes), align: 1
-  Segment part 9.             Intra module refs:   led_setup
-           LOCAL                   ADDRESS         
-           =====                   =======         
-           ?Subroutine0            C112 
-    -------------------------------------------------------------------------
-<CODE> 1 (was CODE)
-  Relative segment, address: C11A - C125 (0xc bytes), align: 1
-  Segment part 11.
+DATA16_AN
+  Relative segment, address: 0026 - 0026 (0x1 bytes), align: 0
+  Segment part 3. ROOT.       Intra module refs:   led_setup
+                                                   uart_setup (uart)
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           led_setup               C11A            main (main)
+           _A_P1SEL                0026 
+           LOCAL                   ADDRESS         
+           =====                   =======         
+           P1SEL                   0026 
+           P1SEL_bit               0026 
+    -------------------------------------------------------------------------
+DATA16_AN
+  Relative segment, address: 0041 - 0041 (0x1 bytes), align: 0
+  Segment part 4. ROOT.       Intra module refs:   led_setup
+                                                   uart_setup (uart)
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           _A_P1SEL2               0041 
+           LOCAL                   ADDRESS         
+           =====                   =======         
+           P1SEL2                  0041 
+           P1SEL2_bit              0041 
+    -------------------------------------------------------------------------
+<CODE> 1 (was CODE)
+  Relative segment, address: C21A - C221 (0x8 bytes), align: 1
+  Segment part 11.            Intra module refs:   led_setup
+           LOCAL                   ADDRESS         
+           =====                   =======         
+           ?Subroutine0            C21A 
+    -------------------------------------------------------------------------
+<CODE> 1 (was CODE)
+  Relative segment, address: C222 - C229 (0x8 bytes), align: 1
+  Segment part 12.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           led_green_on            C222            main (main)
+               CSTACK = 00000000 ( 00000002 )
+    -------------------------------------------------------------------------
+<CODE> 1 (was CODE)
+  Relative segment, address: C22A - C241 (0x18 bytes), align: 1
+  Segment part 13.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           led_setup               C22A            main (main)
+               CSTACK = 00000000 ( 00000002 )
+    -------------------------------------------------------------------------
+<CODE> 1 (was CODE)
+  Relative segment, address: C2EE - C2F5 (0x8 bytes), align: 1
+  Segment part 9.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           led_green_toggle        C2EE            bltth_parse (bluetooth)
+               CSTACK = 00000000 ( 00000002 )
+    -------------------------------------------------------------------------
+<CODE> 1 (was CODE)
+  Relative segment, address: C2F6 - C2FB (0x6 bytes), align: 1
+  Segment part 6.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           led_red_toggle          C2F6            bltth_parse (bluetooth)
                CSTACK = 00000000 ( 00000002 )
 
     *************************************************************************
@@ -217,25 +283,37 @@ DATA16_AN
 
   SEGMENTS IN THE MODULE
   ======================
+DATA16_AN
+  Relative segment, address: 0120 - 0121 (0x2 bytes), align: 0
+  Segment part 3. ROOT.       Intra module refs:   board_setup (system)
+                                                   main
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           _A_WDTCTL               0120 
+           LOCAL                   ADDRESS         
+           =====                   =======         
+           WDTCTL                  0120 
+           WDTCTL_bit              0120 
+    -------------------------------------------------------------------------
 DATA16_I
   Relative segment, address: 0200 - 0200 (0x1 bytes), align: 0
-  Segment part 2.             Intra module refs:   main
+  Segment part 5.             Intra module refs:   main
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            running                 0200 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C0DA - C0FB (0x22 bytes), align: 1
-  Segment part 4.
+  Relative segment, address: C186 - C1BD (0x38 bytes), align: 1
+  Segment part 7.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           main                    C0DA            Segment part 17 (?cstart)
+           main                    C186            Segment part 17 (?cstart)
                calls direct
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 DATA16_ID
   Relative segment, address: C000 - C000 (0x1 bytes), align: 0
-  Segment part 3.             Intra module refs:   running
+  Segment part 6.             Intra module refs:   running
 
     *************************************************************************
 
@@ -246,7 +324,7 @@ DATA16_ID
   ======================
 DATA16_AN
   Relative segment, address: 0029 - 0029 (0x1 bytes), align: 0
-  Segment part 1. ROOT.
+  Segment part 1. ROOT.       Intra module refs:   motor_setDir
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_P2OUT                0029 
@@ -340,11 +418,27 @@ DATA16_AN
            TA1CCR0                 0192 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C07C - C0B5 (0x3a bytes), align: 1
+  Relative segment, address: C142 - C185 (0x44 bytes), align: 1
   Segment part 15.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           motor_setup             C07C            main (main)
+           motor_setup             C142            main (main)
+               CSTACK = 00000000 ( 00000002 )
+    -------------------------------------------------------------------------
+<CODE> 1 (was CODE)
+  Relative segment, address: C242 - C267 (0x26 bytes), align: 1
+  Segment part 14.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           motor_setDir            C242            bltth_parse (bluetooth)
+               CSTACK = 00000000 ( 00000002 )
+    -------------------------------------------------------------------------
+<CODE> 1 (was CODE)
+  Relative segment, address: C268 - C289 (0x22 bytes), align: 1
+  Segment part 13.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           motor_setSpd            C268            bltth_parse (bluetooth)
                CSTACK = 00000000 ( 00000002 )
 
     *************************************************************************
@@ -355,8 +449,19 @@ DATA16_AN
   SEGMENTS IN THE MODULE
   ======================
 DATA16_AN
-  Relative segment, address: 0056 - 0056 (0x1 bytes), align: 0
+  Relative segment, address: 0000 - 0000 (0x1 bytes), align: 0
   Segment part 1. ROOT.       Intra module refs:   board_setup
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           _A_IE1                  0000 
+           LOCAL                   ADDRESS         
+           =====                   =======         
+           IE1                     0000 
+           IE1_bit                 0000 
+    -------------------------------------------------------------------------
+DATA16_AN
+  Relative segment, address: 0056 - 0056 (0x1 bytes), align: 0
+  Segment part 2. ROOT.       Intra module refs:   board_setup
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_DCOCTL               0056 
@@ -367,7 +472,7 @@ DATA16_AN
     -------------------------------------------------------------------------
 DATA16_AN
   Relative segment, address: 0057 - 0057 (0x1 bytes), align: 0
-  Segment part 2. ROOT.       Intra module refs:   board_setup
+  Segment part 3. ROOT.       Intra module refs:   board_setup
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_BCSCTL1              0057 
@@ -377,36 +482,25 @@ DATA16_AN
            BCSCTL1_bit             0057 
     -------------------------------------------------------------------------
 DATA16_AN
-  Relative segment, address: 0120 - 0121 (0x2 bytes), align: 0
-  Segment part 3. ROOT.       Intra module refs:   board_setup
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           _A_WDTCTL               0120 
-           LOCAL                   ADDRESS         
-           =====                   =======         
-           WDTCTL                  0120 
-           WDTCTL_bit              0120 
-    -------------------------------------------------------------------------
-DATA16_AN
   Relative segment, address: 10FE - 10FE (0x1 bytes), align: 0
-  Segment part 4. ROOT.       Intra module refs:   board_setup
+  Segment part 5. ROOT.       Intra module refs:   board_setup
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CALDCO_1MHZ             10FE 
     -------------------------------------------------------------------------
 DATA16_AN
   Relative segment, address: 10FF - 10FF (0x1 bytes), align: 0
-  Segment part 5. ROOT.       Intra module refs:   board_setup
+  Segment part 6. ROOT.       Intra module refs:   board_setup
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            CALBC1_1MHZ             10FF 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C0B6 - C0D9 (0x24 bytes), align: 1
-  Segment part 8.
+  Relative segment, address: C1F0 - C219 (0x2a bytes), align: 1
+  Segment part 9.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           board_setup             C0B6            main (main)
+           board_setup             C1F0            main (main)
                CSTACK = 00000000 ( 00000002 )
 
     *************************************************************************
@@ -426,28 +520,6 @@ DATA16_AN
            =====                   =======         
            IE2                     0001 
            IE2_bit                 0001 
-    -------------------------------------------------------------------------
-DATA16_AN
-  Relative segment, address: 0026 - 0026 (0x1 bytes), align: 0
-  Segment part 2. ROOT.       Intra module refs:   uart_setup
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           _A_P1SEL                0026 
-           LOCAL                   ADDRESS         
-           =====                   =======         
-           P1SEL                   0026 
-           P1SEL_bit               0026 
-    -------------------------------------------------------------------------
-DATA16_AN
-  Relative segment, address: 0041 - 0041 (0x1 bytes), align: 0
-  Segment part 3. ROOT.       Intra module refs:   uart_setup
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           _A_P1SEL2               0041 
-           LOCAL                   ADDRESS         
-           =====                   =======         
-           P1SEL2                  0041 
-           P1SEL2_bit              0041 
     -------------------------------------------------------------------------
 DATA16_AN
   Relative segment, address: 0060 - 0060 (0x1 bytes), align: 0
@@ -499,7 +571,7 @@ DATA16_AN
     -------------------------------------------------------------------------
 DATA16_AN
   Relative segment, address: 0065 - 0065 (0x1 bytes), align: 0
-  Segment part 8. ROOT.       Intra module refs:   uart_putc
+  Segment part 8. ROOT.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_UCA0STAT             0065 
@@ -523,7 +595,7 @@ DATA16_AN
     -------------------------------------------------------------------------
 DATA16_AN
   Relative segment, address: 0067 - 0067 (0x1 bytes), align: 0
-  Segment part 10. ROOT.      Intra module refs:   uart_putc
+  Segment part 10. ROOT.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_UCA0TXBUF            0067 
@@ -534,7 +606,8 @@ DATA16_AN
     -------------------------------------------------------------------------
 DATA16_Z
   Relative segment, address: 0202 - 0203 (0x2 bytes), align: 1
-  Segment part 13.            Intra module refs:   USCI0RX_ISR
+  Segment part 14.            Intra module refs:   USCI0RX_ISR
+                                                   uart_getc
                                                    uart_setup
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
@@ -542,33 +615,53 @@ DATA16_Z
     -------------------------------------------------------------------------
 DATA16_Z
   Relative segment, address: 0205 - 0205 (0x1 bytes), align: 0
-  Segment part 14.            Intra module refs:   USCI0RX_ISR
+  Segment part 15.            Intra module refs:   USCI0RX_ISR
+                                                   uart_getc
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            rx_char                 0205 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C02A - C07B (0x52 bytes), align: 1
-  Segment part 22.
+  Relative segment, address: C0F0 - C141 (0x52 bytes), align: 1
+  Segment part 24.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           uart_setup              C02A            bltth_setup (bluetooth)
+           uart_setup              C0F0            bltth_setup (bluetooth)
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C14A - C157 (0xe bytes), align: 1
-  Segment part 20.
+  Relative segment, address: C2C4 - C2D3 (0x10 bytes), align: 1
+  Segment part 18.            Intra module refs:   uart_gets_startWithAndUntil
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           uart_putc               C14A            main (main)
+           uart_getc               C2C4 
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C166 - C171 (0xc bytes), align: 1
-  Segment part 15.            Intra module refs:   USCI0RX_ISR::??INTVEC 14
+  Relative segment, address: C1BE - C1EF (0x32 bytes), align: 1
+  Segment part 19.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           USCI0RX_ISR             C166 
+           uart_gets_startWithAndUntil
+                                   C1BE            bltth_parse (bluetooth)
+               calls direct
+               CSTACK = 00000000 ( 00000004 )
+    -------------------------------------------------------------------------
+<CODE> 1 (was CODE)
+  Relative segment, address: C2E2 - C2ED (0xc bytes), align: 1
+  Segment part 17.            Intra module refs:   USCI0RX_ISR::??INTVEC 14
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           USCI0RX_ISR             C2E2 
+               interrupt function
+               CSTACK = 00000000 ( 00000004 )
+    -------------------------------------------------------------------------
+<CODE> 1 (was CODE)
+  Relative segment, address: C30A - C30B (0x2 bytes), align: 1
+  Segment part 16.            Intra module refs:   WDT_ISR::??INTVEC 20
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           WDT_ISR                 C30A 
                interrupt function
                CSTACK = 00000000 ( 00000004 )
     -------------------------------------------------------------------------
@@ -579,6 +672,13 @@ INTVEC
            =====                   =======         ======
            USCI0RX_ISR::??INTVEC 14
                                    FFEE 
+    -------------------------------------------------------------------------
+INTVEC
+  Common segment, address: FFE0 - FFF5 (0x16 bytes), align: 1
+  Segment part 12. ROOT.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           WDT_ISR::??INTVEC 20    FFF4 
 
     *************************************************************************
 
@@ -588,11 +688,11 @@ INTVEC
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: C17E - C17F (0x2 bytes), align: 1
+  Relative segment, address: C308 - C309 (0x2 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __DebugBreak            C17E            __exit (?__exit)
+           __DebugBreak            C308            __exit (?__exit)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?__exit
@@ -600,11 +700,11 @@ INTVEC
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: C0FC - C111 (0x16 bytes), align: 1
+  Relative segment, address: C28A - C29F (0x16 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __exit                  C0FC            Segment part 6 (?_exit)
+           __exit                  C28A            Segment part 6 (?_exit)
                                                    _exit (?_exit)
                calls direct
 
@@ -614,14 +714,14 @@ INTVEC
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: C172, align: 1
+  Relative segment, address: C300, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           _exit                   C172            exit (?exit)
+           _exit                   C300            exit (?exit)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C172 - C175 (0x4 bytes), align: 1
+  Relative segment, address: C300 - C303 (0x4 bytes), align: 1
   Segment part 6.             Intra module refs:   _exit
 
     -------------------------------------------------------------------------
@@ -696,11 +796,11 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: C17A - C17D (0x4 bytes), align: 1
+  Relative segment, address: C2FC - C2FF (0x4 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           exit                    C17A            Segment part 17 (?cstart)
+           exit                    C2FC            Segment part 17 (?cstart)
                calls direct
                CSTACK = 00000000 ( 00000002 )
 
@@ -710,11 +810,11 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: C126 - C137 (0x12 bytes), align: 1
+  Relative segment, address: C2B2 - C2C3 (0x12 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           memcpy                  C126            __data16_memcpy (?memzero)
+           memcpy                  C2B2            __data16_memcpy (?memzero)
                CSTACK = 00000000 ( 00000002 )
 
     -------------------------------------------------------------------------
@@ -723,19 +823,19 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: C138 - C149 (0x12 bytes), align: 1
+  Relative segment, address: C2A0 - C2B1 (0x12 bytes), align: 1
   Segment part 4.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __data16_memzero        C138            ?cstart_init_zero (?cstart)
+           __data16_memzero        C2A0            ?cstart_init_zero (?cstart)
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C176 - C179 (0x4 bytes), align: 1
+  Relative segment, address: C304 - C307 (0x4 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __data16_memcpy         C176            ?cstart_init_copy (?cstart)
+           __data16_memcpy         C304            ?cstart_init_copy (?cstart)
                calls direct
                CSTACK = 00000000 ( 00000002 )
 
@@ -751,7 +851,7 @@ RESET
 
 SEGMENT              SPACE    START ADDRESS   END ADDRESS     SIZE  TYPE  ALIGN
 =======              =====    =============   ===========     ====  ====  =====
-DATA16_AN                              0001 - 0001               1   rel    0
+DATA16_AN                              0000 - 0001               2   rel    0
                                        0021 - 0022               2 
                                        0026 - 0026               1 
                                        0029 - 002A               2 
@@ -770,8 +870,8 @@ DATA16_AN                              10FE - 10FF               2   rel    0
 DATA16_C                                  C000                       dse    0
 DATA16_ID                              C000 - C000               1   rel    1
 CSTART                                 C002 - C029              28   rel    1
-<CODE> 1                               C02A - C17F             156   rel    1
-INTVEC                                 FFE0 - FFEF              10   com    1
+<CODE> 1                               C02A - C30B             2E2   rel    1
+INTVEC                                 FFE0 - FFF5              16   com    1
 RESET                                  FFFE - FFFF               2   rel    1
 
                 ****************************************
@@ -780,8 +880,8 @@ RESET                                  FFFE - FFFF               2   rel    1
                 *                                      *
                 ****************************************
 
- 400 bytes of CODE  memory
-  85 bytes of DATA  memory (+ 36 absolute )
+ 802 bytes of CODE  memory
+  85 bytes of DATA  memory (+ 37 absolute )
    1 byte  of CONST memory
 
 Errors: none

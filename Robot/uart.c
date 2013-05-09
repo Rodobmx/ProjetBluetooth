@@ -1,8 +1,5 @@
 // 
 // Filename : uart.c
-// Author   : KevinM
-// Modified : 05/04/2012
-//
 
 
 // Includes
@@ -16,9 +13,6 @@
 #define TXD BIT2
 
 
-// Variables
-//unsigned int  tx_flag;			// Flag indicate that a byte is sending.
-//unsigned char tx_char;			//
 
 unsigned int  rx_flag;			// Flag indicate that a byte is receiving.
 unsigned char rx_char;			//
@@ -44,11 +38,7 @@ void uart_setup(uint8_t baudrate)
   switch(baudrate)
   {
     case 96:    // 9600 Baud
-      UCA0CTL1 |= UCSSEL_2;             // SMCLK
-      
-      //val = 1000000/9600;             // 1 000 000 Hz, 9600 Baud, UCBR1=0x68, UCBR0=0x00
-      //UCA0BR0 = val & 0xFF;           // 1MHz, 9600
-      //UCA0BR1 = val >> 8;             // 1MHz, 9600
+      UCA0CTL1 |= UCSSEL_1;             // SMCLK
       UCA0BR0 = 104;			// 1 MHz, 9600 -> 104.1
       UCA0BR1 = 0;			// 1 MHz, 9600
     break;
@@ -62,14 +52,7 @@ void uart_setup(uint8_t baudrate)
     default:
     break;
   }
-  /*
-  UCA0CTL0 &= ~UCPEN;                   // UCPEN : Parity enable/disable ;
-  UCA0CTL0 &= ~UCPAR;                   // UCPAR : nb parity bits
-  UCA0CTL0 &= ~UCMSB;                   // UCMSB : MSB/LSB first (LSB first)
-  
-  UCA0CTL0 &= ~UC7BIT;                  // UC7BIT : nb data bits (8 bits)
-  UCA0CTL0 &= ~UCSPB;                   // UCSPB :  nb stop bits (1 bit)
-  */
+
   UCA0CTL0 &= ~(UCPEN + UCPAR + UCMSB + UC7BIT + UCSPB + UCMODE0);
   UCA0CTL1 |= UCSSEL_2; // Choix de la clock à 1 Mhz
   
@@ -225,18 +208,7 @@ uint8_t uart_gets_startWithAndUntil(char* str, char startch, char stopch, uint8_
   return i;
 }
 
-// ------------------------------------
-// UART TX interrupt routine.
-// ------------------------------------
-/* Interruption sur un envoi inutile
-#pragma vector = USCIAB0TX_VECTOR
-__interrupt void USCI0TX_ISR(void)
-{
-  UCA0TXBUF = tx_char;		// Copy char to the TX Buffer
-  tx_flag = 0;			// ACK the tx_flag
-  IE2 &= ~UCA0TXIE; 		// Turn off the interrupt to save CPU
-}
-*/
+
 // ------------------------------------
 // UART RX interrupt routine.
 // ------------------------------------
@@ -246,3 +218,19 @@ __interrupt void USCI0RX_ISR(void)
   rx_char = (char)UCA0RXBUF;	// Copy from RX buffer, in doing so we ACK the interrupt as well
   rx_flag = 1;			// Set the rx_flag to 1
 }
+/*
+#pragma vector=RESET_VECTOR
+__interrupt void RESET_ISR(void)
+{
+  rx_flag = rx_flag;
+}
+*/
+
+#pragma vector=WDT_VECTOR
+__interrupt void WDT_ISR(void)
+{
+  rx_flag = rx_flag;
+}
+
+
+

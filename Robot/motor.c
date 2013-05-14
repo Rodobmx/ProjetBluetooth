@@ -34,9 +34,9 @@ void motor_setup(void)
   TA1CCTL0  = CCIE;
   TA1CCR0   = 1000;                      // 65536-1; //32us = 31.25kHz
   TA1CCTL1 |= OUTMOD_7;
-  TA1CCR1   = 250;                         // consigne_RoueA/2*1024;
+  TA1CCR1   = 0;                         // consigne_RoueA/2*1024;
   TA1CCTL2 |= OUTMOD_7;
-  TA1CCR2   = 250;                         // *1024
+  TA1CCR2   = 0;                         // *1024
   TA1CTL   |= TASSEL_2 | MC_1 | ID_3;    // S%CLK, upmode
   TA1CTL &= ~TAIE;
   
@@ -66,4 +66,10 @@ void motor_setSpd(uint8_t l_wheel, uint8_t r_wheel)
 {
   TA1CCR1 = l_wheel*10;
   TA1CCR2 = r_wheel*10;
+}
+
+#pragma vector=TIMER1_A0_VECTOR
+__interrupt void TIMER1_A0_ISR(void)
+{
+  1==1;
 }

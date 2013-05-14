@@ -16,5 +16,5 @@
 void motor_setup(void);
 void motor_setDir(char l_wheel, char r_wheel);
 void motor_setSpd(uint8_t l_wheel, uint8_t r_wheel);
-
+__interrupt void TIMER1_A0_ISR(void);
 #endif

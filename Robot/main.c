@@ -26,13 +26,13 @@ int main(void)
   
   
   led_green_on();
-  TA1CCR1   = 250;  
-  TA1CCR2   = 250;  
+  //TA1CCR1   = 250;  
+  //TA1CCR2   = 250;  
   
   while(running)
   {
     running = bltth_parse();
-    
   }
+  
   while(1);
 } 

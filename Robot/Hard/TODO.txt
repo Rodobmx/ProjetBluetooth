@@ -1,0 +1,2 @@
+Concevoir le schema de l'interface entre la platine du robot et le MSP du robot.
+La platine avec le module bluetooth

@@ -15,10 +15,10 @@ Control Register=0
 NextState0=0
 NextState1=0
 [Action Register]
-Break=4
+Break=2
 State Storage=0
 [DebugChecksum]
-Checksum=140944685
+Checksum=-1800540175
 [CallStack]
 ShowArgs=0
 [Disassembly]

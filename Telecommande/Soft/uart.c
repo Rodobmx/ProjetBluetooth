@@ -34,8 +34,9 @@ void uart_setup(uint8_t baudrate)
   IE2 |= UCA0RXIE;				// Disable USCI_A0 RX interrupt
   UCA0CTL1 &= ~UCSWRST;			// Put UCSWRST offline for reset
   
-  P1SEL  |= (RXD + TXD);        // Set up the I/O
-  P1SEL2 |= (RXD + TXD);        // TXD and RXD
+  P3DIR |= (RXD + TXD); 
+  P3SEL  |= (RXD + TXD);        // Set up the I/O
+  P3SEL2 |= (RXD + TXD);        // TXD and RXD
   
   switch(baudrate)
   {
@@ -58,8 +59,10 @@ void uart_setup(uint8_t baudrate)
   UCA0CTL0 &= ~(UCPEN + UCPAR + UCMSB + UC7BIT + UCSPB + UCMODE0);
   UCA0CTL1 |= UCSSEL_2;			// Choix de la clock à 1 Mhz
   
-  UCA0CTL1 &= ~UCSWRST ;        // USCI state machine , desactivation du reset logiciel
   IE2 |= UCA0RXIE;              // Enable USCI_A0 RX interrupt
+  
+  UCA0CTL1 &= ~UCSWRST ;        // USCI state machine , desactivation du reset logiciel
+  
   
   rx_flag = 0;					// Set rx_flag to 0
   
@@ -86,9 +89,10 @@ uint8_t uart_putc(unsigned char c)
   while(tx_flag == 1);	// Have to wait for the TX buffer
   tx_flag = 1;			// Reset the tx_flag
 */
-
-  while(UCA0STAT & UCBUSY);
-    UCA0TXBUF = c;
+  char x = (UCA0STAT & BIT0);
+  while( (UCA0STAT & UCBUSY) );
+  
+  UCA0TXBUF = c;
 	
   return 1;
 }
@@ -228,6 +232,15 @@ __interrupt void USCI0RX_ISR(void)
 {
   rx_char = (char)UCA0RXBUF;	// Copy from RX buffer, in doing so we ACK the interrupt as well
   rx_flag = 1;			// Set the rx_flag to 1
+}
+
+// ------------------------------------
+// UART RX interrupt routine.
+// ------------------------------------
+#pragma vector = USCIAB0TX_VECTOR
+__interrupt void USCI0TX_ISR(void)
+{
+  1;
 }
 
 // ------------------------------------

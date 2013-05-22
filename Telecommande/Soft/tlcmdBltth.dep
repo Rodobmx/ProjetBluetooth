@@ -2,37 +2,37 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>3998929162</fileChecksum>
+  <fileChecksum>407031517</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$PROJ_DIR$\..\lcd.c</file>
-      <file>$PROJ_DIR$\..\adc.c</file>
-      <file>$PROJ_DIR$\..\jstck.c</file>
-      <file>$PROJ_DIR$\..\adc.h</file>
-      <file>$PROJ_DIR$\..\jstck.h</file>
-      <file>$PROJ_DIR$\..\lcd.h</file>
-      <file>$PROJ_DIR$\..\led.c</file>
-      <file>$PROJ_DIR$\..\led.h</file>
+      <file>$PROJ_DIR$\adc.h</file>
+      <file>$PROJ_DIR$\lcd.c</file>
+      <file>$PROJ_DIR$\jstck.c</file>
+      <file>$PROJ_DIR$\adc.c</file>
+      <file>$PROJ_DIR$\jstck.h</file>
+      <file>$PROJ_DIR$\lcd.h</file>
+      <file>$PROJ_DIR$\led.c</file>
+      <file>$PROJ_DIR$\led.h</file>
       <file>$PROJ_DIR$\main_tlcmdBltth.c</file>
-      <file>$PROJ_DIR$\..\system.c</file>
-      <file>$PROJ_DIR$\..\system.h</file>
+      <file>$PROJ_DIR$\system.c</file>
+      <file>$PROJ_DIR$\system.h</file>
       <file>$PROJ_DIR$\tlcmdBltth.c</file>
       <file>$PROJ_DIR$\tlcmdBltth.h</file>
-      <file>$PROJ_DIR$\..\uart.c</file>
-      <file>$PROJ_DIR$\..\uart.h</file>
-      <file>$PROJ_DIR$\..\utils.c</file>
-      <file>$PROJ_DIR$\..\utils.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\adc.r43</file>
+      <file>$PROJ_DIR$\uart.c</file>
+      <file>$PROJ_DIR$\uart.h</file>
+      <file>$PROJ_DIR$\utils.c</file>
+      <file>$PROJ_DIR$\utils.h</file>
       <file>$PROJ_DIR$\Debug\Obj\jstck.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\adc.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\lcd.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\led.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\system.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\main_tlcmdBltth.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\tlcmdBltth.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\uart.r43</file>
-      <file>$PROJ_DIR$\Debug\Obj\utils.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\adc.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\utils.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\tlcmdBltth.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\main_tlcmdBltth.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\system.r43</file>
+      <file>$PROJ_DIR$\Debug\Obj\led.r43</file>
       <file>$PROJ_DIR$\Debug\Obj\jstck.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\lcd.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\led.pbi</file>
@@ -42,7 +42,6 @@
       <file>$PROJ_DIR$\Debug\Obj\uart.pbi</file>
       <file>$TOOLKIT_DIR$\config\multiplier.xcl</file>
       <file>$PROJ_DIR$\Debug\Obj\utils.pbi</file>
-      <file>$PROJ_DIR$\Debug\Exe\tlcmdBltth.ulp</file>
       <file>$PROJ_DIR$\Debug\Exe\tlcmdBltth.d43</file>
       <file>$PROJ_DIR$\Debug\Obj\tlcmdBltth.pbd</file>
       <file>$TOOLKIT_DIR$\inc\io430g2553.h</file>
@@ -64,9 +63,11 @@
       <file>$TOOLKIT_DIR$\inc\dlib\c\math.h</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\ymath.h</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\xtgmath.h</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\stdlib.h</file>
+      <file>$TOOLKIT_DIR$\inc\io430.h</file>
     </outputs>
     <file>
-      <name>$PROJ_DIR$\..\lcd.c</name>
+      <name>$PROJ_DIR$\lcd.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
@@ -77,22 +78,19 @@
           <file> 19</file>
         </tool>
       </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\adc.c</name>
-      <outputs>
+      <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 26</file>
+          <file> 5 57 49 50 47 45 44 46 43 51 52 39</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 17</file>
+          <file> 5 57 49 50 47 45 44 46 43 51 52 39</file>
         </tool>
-      </outputs>
+      </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\jstck.c</name>
+      <name>$PROJ_DIR$\jstck.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
@@ -100,12 +98,45 @@
         </tool>
         <tool>
           <name>ICC430</name>
+          <file> 17</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 4 52 39</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 4 52 39</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\adc.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
           <file> 18</file>
         </tool>
       </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 0 48 49 50 47 45 44 46 43 52 39</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 0 48 49 50 47 45 44 46 43 52 39</file>
+        </tool>
+      </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\led.c</name>
+      <name>$PROJ_DIR$\led.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
@@ -113,9 +144,19 @@
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 20</file>
+          <file> 26</file>
         </tool>
       </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 7 58 52 39</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 7 58 52 39</file>
+        </tool>
+      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\main_tlcmdBltth.c</name>
@@ -126,12 +167,22 @@
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 22</file>
+          <file> 24</file>
         </tool>
       </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 12 48 49 50 47 45 44 46 43 10 14 7 4 5 0</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 12 48 49 50 47 45 44 46 43 10 14 7 4 5 0</file>
+        </tool>
+      </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\system.c</name>
+      <name>$PROJ_DIR$\system.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
@@ -139,9 +190,19 @@
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 21</file>
+          <file> 25</file>
         </tool>
       </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 52 39 10</file>
+        </tool>
+        <tool>
+          <name>ICC430</name>
+          <file> 52 39 10</file>
+        </tool>
+      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\tlcmdBltth.c</name>
@@ -158,16 +219,16 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 12 49 50 51 48 46 45 47 44 4 5 14 16 3 53 40 54 52 55 56 57</file>
+          <file> 12 48 49 50 47 45 44 46 43 4 5 14 16 0 52 39 53 51</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 12 49 50 51 48 46 45 47 44 4 5 14 16 3 53 40 54 52 55 56 57</file>
+          <file> 12 48 49 50 47 45 44 46 43 4 5 14 16 0 52 39 53 51</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\uart.c</name>
+      <name>$PROJ_DIR$\uart.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
@@ -175,22 +236,22 @@
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 24</file>
+          <file> 20</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 39 40 14 49 50 51 48 46 45 47 44</file>
+          <file> 38 39 14 48 49 50 47 45 44 46 43</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 39 40 14 49 50 51 48 46 45 47 44</file>
+          <file> 38 39 14 48 49 50 47 45 44 46 43</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\utils.c</name>
+      <name>$PROJ_DIR$\utils.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
@@ -198,17 +259,17 @@
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 25</file>
+          <file> 22</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 16 49 50 51 48 46 45 47 44 55 56 57 54 52</file>
+          <file> 16 48 49 50 47 45 44 46 43 54 55 56 53 51</file>
         </tool>
         <tool>
           <name>ICC430</name>
-          <file> 16 49 50 51 48 46 45 47 44 55 56 57 54 52</file>
+          <file> 16 48 49 50 47 45 44 46 43 54 55 56 53 51</file>
         </tool>
       </inputs>
     </file>
@@ -217,11 +278,7 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 37 43</file>
-        </tool>
-        <tool>
-          <name>ULP430</name>
-          <file> 36</file>
+          <file> 36 42</file>
         </tool>
       </outputs>
     </file>
@@ -230,13 +287,13 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 43</file>
+          <file> 42</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 41 34 17 18 19 20 22 21 23 24 25 42</file>
+          <file> 40 34 18 17 19 26 24 25 23 20 22 41</file>
         </tool>
       </inputs>
     </file>

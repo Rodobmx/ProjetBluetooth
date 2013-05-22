@@ -22,6 +22,7 @@ uint8_t uart_gets_startWithAndUntil(char* str, char startch, char stopch, uint8_
 
 
 __interrupt void USCI0RX_ISR(void);
+__interrupt void USCI0TX_ISR(void);
 __interrupt void WDT_ISR(void);
 
 #endif

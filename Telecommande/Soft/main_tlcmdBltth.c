@@ -4,11 +4,12 @@
 // Includes
 #include "tlcmdBltth.h"
 
-#include "../system.h"
-#include "../led.h"
-#include "../jstck.h"
-#include "../lcd.h"
-#include "../adc.h"
+#include "system.h"
+#include "uart.h"
+#include "led.h"
+#include "jstck.h"
+#include "lcd.h"
+#include "adc.h"
 
 
 // Main
@@ -16,6 +17,7 @@ int main( void )
 {
   // init
   board_init();
+  uart_setup(96);
   led_init();
   jstck_init();
   lcd_init();

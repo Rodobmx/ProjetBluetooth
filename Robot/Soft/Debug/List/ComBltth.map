@@ -2,43 +2,43 @@
 #                                                                              #
 #      IAR Universal Linker V5.3.2.26                                          #
 #                                                                              #
-#           Link time     =  14/May/2013  12:23:13                             #
+#           Link time     =  24/May/2013  17:19:00                             #
 #           Target CPU    =  MSP430                                            #
 #           List file     =  C:\Users\Rodolphe\Documents\Esigelec\Dominante\Ap #
-#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Li #
-#                            st\ComBltth.map                                   #
+#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Deb #
+#                            ug\List\ComBltth.map                              #
 #           Output file 1 =  C:\Users\Rodolphe\Documents\Esigelec\Dominante\Ap #
-#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Ex #
-#                            e\ComBltth.d43                                    #
+#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Deb #
+#                            ug\Exe\ComBltth.d43                               #
 #                            Format: debug                                     #
 #                            UBROF version 10.0.6                              #
 #                            Using library modules for C-SPY (-rt)             #
 #           Command line  =  C:\Users\Rodolphe\Documents\Esigelec\Dominante\Ap #
-#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Ob #
-#                            j\bluetooth.r43                                   #
+#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Deb #
+#                            ug\Obj\bluetooth.r43                              #
 #                            C:\Users\Rodolphe\Documents\Esigelec\Dominante\Ap #
-#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Ob #
-#                            j\led.r43                                         #
+#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Deb #
+#                            ug\Obj\led.r43                                    #
 #                            C:\Users\Rodolphe\Documents\Esigelec\Dominante\Ap #
-#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Ob #
-#                            j\main.r43                                        #
+#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Deb #
+#                            ug\Obj\main.r43                                   #
 #                            C:\Users\Rodolphe\Documents\Esigelec\Dominante\Ap #
-#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Ob #
-#                            j\motor.r43                                       #
+#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Deb #
+#                            ug\Obj\motor.r43                                  #
 #                            C:\Users\Rodolphe\Documents\Esigelec\Dominante\Ap #
-#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Ob #
-#                            j\system.r43                                      #
+#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Deb #
+#                            ug\Obj\system.r43                                 #
 #                            C:\Users\Rodolphe\Documents\Esigelec\Dominante\Ap #
-#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Ob #
-#                            j\uart.r43                                        #
+#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Deb #
+#                            ug\Obj\uart.r43                                   #
 #                            -o                                                #
 #                            C:\Users\Rodolphe\Documents\Esigelec\Dominante\Ap #
-#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Ex #
-#                            e\ComBltth.d43                                    #
+#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Deb #
+#                            ug\Exe\ComBltth.d43                               #
 #                            -l                                                #
 #                            C:\Users\Rodolphe\Documents\Esigelec\Dominante\Ap #
-#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Li #
-#                            st\ComBltth.map                                   #
+#                            pli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Deb #
+#                            ug\List\ComBltth.map                              #
 #                            -xms                                              #
 #                            "-IC:\Program Files (x86)\IAR Systems\Embedded Wo #
 #                            rkbench 6.4 Kickstart\430\LIB\"                   #
@@ -131,7 +131,7 @@ Absolute parts
            _STACK_SIZE             0050 
     *************************************************************************
 
-  FILE NAME : C:\Users\Rodolphe\Documents\Esigelec\Dominante\Appli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Obj\bluetooth.r43
+  FILE NAME : C:\Users\Rodolphe\Documents\Esigelec\Dominante\Appli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Debug\Obj\bluetooth.r43
   PROGRAM MODULE, NAME : bluetooth
 
   SEGMENTS IN THE MODULE
@@ -162,26 +162,41 @@ DATA16_Z
            bltthMode               0204 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C2C4 - C2D1 (0xe bytes), align: 1
-  Segment part 7.
+  Relative segment, address: C2BC - C2C9 (0xe bytes), align: 1
+  Segment part 9.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           bltth_setup             C2C4            main (main)
+           bltth_setup             C2BC            main (main)
                calls direct
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C02A - C0EF (0xc6 bytes), align: 1
+  Relative segment, address: C02A - C0D7 (0xae bytes), align: 1
   Segment part 6.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            bltth_parse             C02A            main (main)
                calls direct
-               CSTACK = 00000000 ( 00000012 )
+               CSTACK = 00000000 ( 00000016 )
+    -------------------------------------------------------------------------
+<CODE> 1 (was CODE)
+  Relative segment, address: C29C - C2AB (0x10 bytes), align: 1
+  Segment part 7.             Intra module refs:   bltth_parse
+           LOCAL                   ADDRESS         
+           =====                   =======         
+           ?Subroutine0            C29C 
+    -------------------------------------------------------------------------
+<CODE> 1 (was CODE)
+  Relative segment, address: C2D6 - C2DF (0xa bytes), align: 1
+  Segment part 8.             Intra module refs:   ?Subroutine0
+                                                   bltth_parse
+           LOCAL                   ADDRESS         
+           =====                   =======         
+           ?Subroutine1            C2D6 
 
     *************************************************************************
 
-  FILE NAME : C:\Users\Rodolphe\Documents\Esigelec\Dominante\Appli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Obj\led.r43
+  FILE NAME : C:\Users\Rodolphe\Documents\Esigelec\Dominante\Appli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Debug\Obj\led.r43
   PROGRAM MODULE, NAME : led
 
   SEGMENTS IN THE MODULE
@@ -236,47 +251,47 @@ DATA16_AN
            P1SEL2_bit              0041 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C20A - C211 (0x8 bytes), align: 1
+  Relative segment, address: C1F2 - C1F9 (0x8 bytes), align: 1
   Segment part 11.            Intra module refs:   led_setup
            LOCAL                   ADDRESS         
            =====                   =======         
-           ?Subroutine0            C20A 
+           ?Subroutine0            C1F2 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C212 - C219 (0x8 bytes), align: 1
+  Relative segment, address: C1FA - C201 (0x8 bytes), align: 1
   Segment part 12.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           led_green_on            C212            main (main)
+           led_green_on            C1FA            main (main)
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C21A - C231 (0x18 bytes), align: 1
+  Relative segment, address: C202 - C219 (0x18 bytes), align: 1
   Segment part 13.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           led_setup               C21A            main (main)
+           led_setup               C202            main (main)
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C2DE - C2E5 (0x8 bytes), align: 1
+  Relative segment, address: C2E0 - C2E7 (0x8 bytes), align: 1
   Segment part 9.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           led_green_toggle        C2DE            bltth_parse (bluetooth)
+           led_green_toggle        C2E0            bltth_parse (bluetooth)
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C2E6 - C2EB (0x6 bytes), align: 1
+  Relative segment, address: C2E8 - C2ED (0x6 bytes), align: 1
   Segment part 6.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           led_red_toggle          C2E6            bltth_parse (bluetooth)
+           led_red_toggle          C2E8            bltth_parse (bluetooth)
                CSTACK = 00000000 ( 00000002 )
 
     *************************************************************************
 
-  FILE NAME : C:\Users\Rodolphe\Documents\Esigelec\Dominante\Appli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Obj\main.r43
+  FILE NAME : C:\Users\Rodolphe\Documents\Esigelec\Dominante\Appli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Debug\Obj\main.r43
   PROGRAM MODULE, NAME : main
 
   SEGMENTS IN THE MODULE
@@ -301,11 +316,11 @@ DATA16_I
            running                 0200 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C1B4 - C1DF (0x2c bytes), align: 1
+  Relative segment, address: C19C - C1C7 (0x2c bytes), align: 1
   Segment part 5.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           main                    C1B4            Segment part 17 (?cstart)
+           main                    C19C            Segment part 17 (?cstart)
                calls direct
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
@@ -315,7 +330,7 @@ DATA16_ID
 
     *************************************************************************
 
-  FILE NAME : C:\Users\Rodolphe\Documents\Esigelec\Dominante\Appli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Obj\motor.r43
+  FILE NAME : C:\Users\Rodolphe\Documents\Esigelec\Dominante\Appli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Debug\Obj\motor.r43
   PROGRAM MODULE, NAME : motor
 
   SEGMENTS IN THE MODULE
@@ -323,6 +338,7 @@ DATA16_ID
 DATA16_AN
   Relative segment, address: 0029 - 0029 (0x1 bytes), align: 0
   Segment part 1. ROOT.       Intra module refs:   motor_setDir
+                                                   motor_setup
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_P2OUT                0029 
@@ -354,19 +370,8 @@ DATA16_AN
            P2SEL_bit               002E 
     -------------------------------------------------------------------------
 DATA16_AN
-  Relative segment, address: 0042 - 0042 (0x1 bytes), align: 0
-  Segment part 4. ROOT.       Intra module refs:   motor_setup
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           _A_P2SEL2               0042 
-           LOCAL                   ADDRESS         
-           =====                   =======         
-           P2SEL2                  0042 
-           P2SEL2_bit              0042 
-    -------------------------------------------------------------------------
-DATA16_AN
   Relative segment, address: 0180 - 0181 (0x2 bytes), align: 0
-  Segment part 5. ROOT.       Intra module refs:   motor_setup
+  Segment part 4. ROOT.       Intra module refs:   motor_setup
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_TA1CTL               0180 
@@ -377,7 +382,7 @@ DATA16_AN
     -------------------------------------------------------------------------
 DATA16_AN
   Relative segment, address: 0182 - 0183 (0x2 bytes), align: 0
-  Segment part 6. ROOT.       Intra module refs:   motor_setup
+  Segment part 5. ROOT.       Intra module refs:   motor_setup
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_TA1CCTL0             0182 
@@ -388,7 +393,7 @@ DATA16_AN
     -------------------------------------------------------------------------
 DATA16_AN
   Relative segment, address: 0184 - 0185 (0x2 bytes), align: 0
-  Segment part 7. ROOT.       Intra module refs:   motor_setup
+  Segment part 6. ROOT.       Intra module refs:   motor_setup
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_TA1CCTL1             0184 
@@ -399,7 +404,7 @@ DATA16_AN
     -------------------------------------------------------------------------
 DATA16_AN
   Relative segment, address: 0186 - 0187 (0x2 bytes), align: 0
-  Segment part 8. ROOT.       Intra module refs:   motor_setup
+  Segment part 7. ROOT.       Intra module refs:   motor_setup
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            _A_TA1CCTL2             0186 
@@ -410,38 +415,38 @@ DATA16_AN
     -------------------------------------------------------------------------
 DATA16_AN
   Relative segment, address: 0192 - 0193 (0x2 bytes), align: 0
-  Segment part 9. ROOT.       Intra module refs:   motor_setup
+  Segment part 8. ROOT.       Intra module refs:   motor_setup
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            TA1CCR0                 0192 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C142 - C181 (0x40 bytes), align: 1
-  Segment part 17.
-           ENTRY                   ADDRESS         REF BY
-           =====                   =======         ======
-           motor_setup             C142            main (main)
-               CSTACK = 00000000 ( 00000002 )
-    -------------------------------------------------------------------------
-<CODE> 1 (was CODE)
-  Relative segment, address: C232 - C257 (0x26 bytes), align: 1
+  Relative segment, address: C12A - C169 (0x40 bytes), align: 1
   Segment part 16.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           motor_setDir            C232            bltth_parse (bluetooth)
+           motor_setup             C12A            main (main)
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C258 - C279 (0x22 bytes), align: 1
+  Relative segment, address: C21A - C23F (0x26 bytes), align: 1
   Segment part 15.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           motor_setSpd            C258            bltth_parse (bluetooth)
+           motor_setDir            C21A            bltth_parse (bluetooth)
+               CSTACK = 00000000 ( 00000002 )
+    -------------------------------------------------------------------------
+<CODE> 1 (was CODE)
+  Relative segment, address: C240 - C261 (0x22 bytes), align: 1
+  Segment part 14.
+           ENTRY                   ADDRESS         REF BY
+           =====                   =======         ======
+           motor_setSpd            C240            bltth_parse (bluetooth)
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
   Relative segment, address: C2FC - C2FD (0x2 bytes), align: 1
-  Segment part 14.            Intra module refs:   TIMER1_A0_ISR::??INTVEC 26
+  Segment part 13.            Intra module refs:   TIMER1_A0_ISR::??INTVEC 26
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            TIMER1_A0_ISR           C2FC 
@@ -450,7 +455,7 @@ DATA16_AN
     -------------------------------------------------------------------------
 INTVEC
   Common segment, address: FFE0 - FFFB (0x1c bytes), align: 1
-  Segment part 12. ROOT.
+  Segment part 11. ROOT.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            TIMER1_A0_ISR::??INTVEC 26
@@ -458,7 +463,7 @@ INTVEC
 
     *************************************************************************
 
-  FILE NAME : C:\Users\Rodolphe\Documents\Esigelec\Dominante\Appli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Obj\system.r43
+  FILE NAME : C:\Users\Rodolphe\Documents\Esigelec\Dominante\Appli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Debug\Obj\system.r43
   PROGRAM MODULE, NAME : system
 
   SEGMENTS IN THE MODULE
@@ -511,16 +516,16 @@ DATA16_AN
            CALBC1_1MHZ             10FF 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C1E0 - C209 (0x2a bytes), align: 1
+  Relative segment, address: C1C8 - C1F1 (0x2a bytes), align: 1
   Segment part 9.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           board_setup             C1E0            main (main)
+           board_setup             C1C8            main (main)
                CSTACK = 00000000 ( 00000002 )
 
     *************************************************************************
 
-  FILE NAME : C:\Users\Rodolphe\Documents\Esigelec\Dominante\Appli_a_microP\ProjetBluetooth\trunk\Robot\Debug\Obj\uart.r43
+  FILE NAME : C:\Users\Rodolphe\Documents\Esigelec\Dominante\Appli_a_microP\ProjetBluetooth\trunk\Robot\Soft\Debug\Obj\uart.r43
   PROGRAM MODULE, NAME : uart
 
   SEGMENTS IN THE MODULE
@@ -637,46 +642,46 @@ DATA16_Z
            rx_char                 0205 
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C0F0 - C141 (0x52 bytes), align: 1
+  Relative segment, address: C0D8 - C129 (0x52 bytes), align: 1
   Segment part 24.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           uart_setup              C0F0            bltth_setup (bluetooth)
+           uart_setup              C0D8            bltth_setup (bluetooth)
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C2B4 - C2C3 (0x10 bytes), align: 1
+  Relative segment, address: C2AC - C2BB (0x10 bytes), align: 1
   Segment part 18.            Intra module refs:   uart_gets_startWithAndUntil
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           uart_getc               C2B4 
+           uart_getc               C2AC 
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C182 - C1B3 (0x32 bytes), align: 1
+  Relative segment, address: C16A - C19B (0x32 bytes), align: 1
   Segment part 19.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
            uart_gets_startWithAndUntil
-                                   C182            bltth_parse (bluetooth)
+                                   C16A            bltth_parse (bluetooth)
                calls direct
                CSTACK = 00000000 ( 00000004 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C2D2 - C2DD (0xc bytes), align: 1
+  Relative segment, address: C2CA - C2D5 (0xc bytes), align: 1
   Segment part 17.            Intra module refs:   USCI0RX_ISR::??INTVEC 14
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           USCI0RX_ISR             C2D2 
+           USCI0RX_ISR             C2CA 
                interrupt function
                CSTACK = 00000000 ( 00000004 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C2F8 - C2F9 (0x2 bytes), align: 1
+  Relative segment, address: C2FA - C2FB (0x2 bytes), align: 1
   Segment part 16.            Intra module refs:   WDT_ISR::??INTVEC 20
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           WDT_ISR                 C2F8 
+           WDT_ISR                 C2FA 
                interrupt function
                CSTACK = 00000000 ( 00000004 )
     -------------------------------------------------------------------------
@@ -703,11 +708,11 @@ INTVEC
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: C2FA - C2FB (0x2 bytes), align: 1
+  Relative segment, address: C2FE - C2FF (0x2 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __DebugBreak            C2FA            __exit (?__exit)
+           __DebugBreak            C2FE            __exit (?__exit)
 
     -------------------------------------------------------------------------
   LIBRARY MODULE, NAME : ?__exit
@@ -715,11 +720,11 @@ INTVEC
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: C27A - C28F (0x16 bytes), align: 1
+  Relative segment, address: C262 - C277 (0x16 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __exit                  C27A            Segment part 6 (?_exit)
+           __exit                  C262            Segment part 6 (?_exit)
                                                    _exit (?_exit)
                calls direct
 
@@ -729,14 +734,14 @@ INTVEC
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: C2F0, align: 1
+  Relative segment, address: C2EE, align: 1
   Segment part 0.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           _exit                   C2F0            exit (?exit)
+           _exit                   C2EE            exit (?exit)
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C2F0 - C2F3 (0x4 bytes), align: 1
+  Relative segment, address: C2EE - C2F1 (0x4 bytes), align: 1
   Segment part 6.             Intra module refs:   _exit
 
     -------------------------------------------------------------------------
@@ -811,11 +816,11 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: C2EC - C2EF (0x4 bytes), align: 1
+  Relative segment, address: C2F6 - C2F9 (0x4 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           exit                    C2EC            Segment part 17 (?cstart)
+           exit                    C2F6            Segment part 17 (?cstart)
                calls direct
                CSTACK = 00000000 ( 00000002 )
 
@@ -825,11 +830,11 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: C290 - C2A1 (0x12 bytes), align: 1
+  Relative segment, address: C28A - C29B (0x12 bytes), align: 1
   Segment part 2.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           memcpy                  C290            __data16_memcpy (?memzero)
+           memcpy                  C28A            __data16_memcpy (?memzero)
                CSTACK = 00000000 ( 00000002 )
 
     -------------------------------------------------------------------------
@@ -838,19 +843,19 @@ RESET
   SEGMENTS IN THE MODULE
   ======================
 <CODE> 1 (was CODE)
-  Relative segment, address: C2A2 - C2B3 (0x12 bytes), align: 1
+  Relative segment, address: C278 - C289 (0x12 bytes), align: 1
   Segment part 4.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __data16_memzero        C2A2            ?cstart_init_zero (?cstart)
+           __data16_memzero        C278            ?cstart_init_zero (?cstart)
                CSTACK = 00000000 ( 00000002 )
     -------------------------------------------------------------------------
 <CODE> 1 (was CODE)
-  Relative segment, address: C2F4 - C2F7 (0x4 bytes), align: 1
+  Relative segment, address: C2F2 - C2F5 (0x4 bytes), align: 1
   Segment part 3.
            ENTRY                   ADDRESS         REF BY
            =====                   =======         ======
-           __data16_memcpy         C2F4            ?cstart_init_copy (?cstart)
+           __data16_memcpy         C2F2            ?cstart_init_copy (?cstart)
                calls direct
                CSTACK = 00000000 ( 00000002 )
 
@@ -871,7 +876,7 @@ DATA16_AN                              0000 - 0001               2   rel    0
                                        0026 - 0026               1 
                                        0029 - 002A               2 
                                        002E - 002E               1 
-                                       0041 - 0042               2 
+                                       0041 - 0041               1 
                                        0056 - 0057               2 
                                        0060 - 0063               4 
                                        0065 - 0067               3 
@@ -885,7 +890,7 @@ DATA16_AN                              10FE - 10FF               2   rel    0
 DATA16_C                                  C000                       dse    0
 DATA16_ID                              C000 - C000               1   rel    1
 CSTART                                 C002 - C029              28   rel    1
-<CODE> 1                               C02A - C2FD             2D4   rel    1
+<CODE> 1                               C02A - C2FF             2D6   rel    1
 INTVEC                                 FFE0 - FFFB              1C   com    1
 RESET                                  FFFE - FFFF               2   rel    1
 
@@ -895,8 +900,8 @@ RESET                                  FFFE - FFFF               2   rel    1
                 *                                      *
                 ****************************************
 
- 794 bytes of CODE  memory
-  85 bytes of DATA  memory (+ 37 absolute )
+ 796 bytes of CODE  memory
+  85 bytes of DATA  memory (+ 36 absolute )
    1 byte  of CONST memory
 
 Errors: none

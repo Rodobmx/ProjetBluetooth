@@ -1,6 +1,5 @@
 //
-// Filename : bluetooth.h
-// Author   : KevinM
+// Filename : bluetooth.h// Author   : KevinM
 // Modified : 05/04/2012
 //
 

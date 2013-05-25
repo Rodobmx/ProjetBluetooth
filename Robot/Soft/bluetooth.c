@@ -46,7 +46,7 @@ char rx_buff[20];
 // --------------------------
 void bltth_setup(void)
 {
-  uart_setup(11);
+  uart_setup(96);
   bltthMode = BLTTH_WAITING_MODE;
   
   // Clear rx buffer
@@ -181,14 +181,14 @@ uint8_t bltth_parse(void)
     {
       case TRAME_CAR_VITESSE: // Type trame recue 2 vitesse des roues   
         {
-          motor_setDir(buffer[TRAME_SENSA_INDEX],buffer[TRAME_SENSB_INDEX]);
-          
           unsigned vitesseA=0, vitesseB=0;
+          
           
           /* On peut réecrire la fonction atoi pour prendre que 3 caractere si tu veux, sinon comme sa c'est plus rapide que mettre en temp */
           vitesseA = (buffer[TRAME_SENSA_INDEX+1]-48)*100 +(buffer[TRAME_SENSA_INDEX+2]-48)*10 + (buffer[TRAME_SENSA_INDEX+3]-48);
           vitesseB = (buffer[TRAME_SENSB_INDEX+1]-48)*100 +(buffer[TRAME_SENSB_INDEX+2]-48)*10 + (buffer[TRAME_SENSB_INDEX+3]-48);
           
+          motor_setDir(buffer[TRAME_SENSA_INDEX],buffer[TRAME_SENSB_INDEX]);     
           motor_setSpd(vitesseA,vitesseB);
           
         }      

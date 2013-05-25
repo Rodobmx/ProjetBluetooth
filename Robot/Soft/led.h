@@ -1,8 +1,6 @@
 // 
 // Filename : led.h
-// Author   : KevinM
-// Modified : 05/04/2012
-//
+
 
 
 #ifndef _LED_H_

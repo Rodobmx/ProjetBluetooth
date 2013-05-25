@@ -1,4 +1,3 @@
-//
 // Filename : led.c
 // Author   : KevinM
 // Modified : 05/04/2012

@@ -23,13 +23,13 @@
       <file>$PROJ_DIR$\Debug\Obj\motor.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\motor.r43</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\stdlib.h</file>
-      <file>$PROJ_DIR$\Debug\List\ComBltth.map</file>
-      <file>$TOOLKIT_DIR$\inc\dlib\c\ysizet.h</file>
-      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.r43</file>
-      <file>$TOOLKIT_DIR$\config\lnk430G2553.xcl</file>
       <file>$PROJ_DIR$\Debug\Obj\main_.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\io430g2553.h</file>
       <file>$TOOLKIT_DIR$\inc\dlib\c\string.h</file>
+      <file>$TOOLKIT_DIR$\inc\io430g2553.h</file>
+      <file>$TOOLKIT_DIR$\config\lnk430G2553.xcl</file>
+      <file>$TOOLKIT_DIR$\lib\dlib\dl430fn.r43</file>
+      <file>$TOOLKIT_DIR$\inc\dlib\c\ysizet.h</file>
+      <file>$PROJ_DIR$\Debug\List\ComBltth.map</file>
       <file>$PROJ_DIR$\Debug\Obj\uart.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\ComBltth.pbd</file>
       <file>$PROJ_DIR$\Debug\Exe\ComBltth.d43</file>
@@ -58,19 +58,6 @@
       <file>$PROJ_DIR$\..\led.c</file>
     </outputs>
     <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 26 17</file>
-        </tool>
-        <tool>
-          <name>ULP430</name>
-          <file> 40</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
       <name>$PROJ_DIR$\bluetooth.c</name>
       <outputs>
         <tool>
@@ -85,11 +72,11 @@
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 0 30 31 32 29 38 39 37 46 7 13 4 23 18 16 22 44</file>
+          <file> 0 30 31 32 29 38 39 37 46 7 13 4 18 22 16 19 44</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 0 30 31 32 29 38 39 37 46 7 13 4 23 18 16 22 44</file>
+          <file> 0 30 31 32 29 38 39 37 46 7 13 4 18 22 16 19 44</file>
         </tool>
       </inputs>
     </file>
@@ -108,11 +95,11 @@
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 4 22 44</file>
+          <file> 4 19 44</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 4 22 44</file>
+          <file> 4 19 44</file>
         </tool>
       </inputs>
     </file>
@@ -131,11 +118,11 @@
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 10 4 13 30 31 32 29 38 39 37 46 0 7 22 44</file>
+          <file> 10 4 13 30 31 32 29 38 39 37 46 0 7 19 44</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 10 4 13 30 31 32 29 38 39 37 46 0 7 22 44</file>
+          <file> 10 4 13 30 31 32 29 38 39 37 46 0 7 19 44</file>
         </tool>
       </inputs>
     </file>
@@ -154,11 +141,11 @@
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 7 30 31 32 29 38 39 37 46 22 44</file>
+          <file> 7 30 31 32 29 38 39 37 46 19 44</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 7 30 31 32 29 38 39 37 46 22 44</file>
+          <file> 7 30 31 32 29 38 39 37 46 19 44</file>
         </tool>
       </inputs>
     </file>
@@ -177,11 +164,11 @@
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 10 22 44</file>
+          <file> 10 19 44</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 10 22 44</file>
+          <file> 10 19 44</file>
         </tool>
       </inputs>
     </file>
@@ -200,11 +187,11 @@
       <inputs>
         <tool>
           <name>ICC430</name>
-          <file> 13 30 31 32 29 38 39 37 46 22 44</file>
+          <file> 13 30 31 32 29 38 39 37 46 19 44</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 13 30 31 32 29 38 39 37 46 22 44</file>
+          <file> 13 30 31 32 29 38 39 37 46 19 44</file>
         </tool>
       </inputs>
     </file>
@@ -213,13 +200,13 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 17</file>
+          <file> 23</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 20 28 35 42 15 34 33 19</file>
+          <file> 20 28 35 42 15 34 33 21</file>
         </tool>
       </inputs>
     </file>
@@ -228,7 +215,20 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 21</file>
+          <file> 17</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 26 23</file>
+        </tool>
+        <tool>
+          <name>ULP430</name>
+          <file> 40</file>
         </tool>
       </outputs>
     </file>
@@ -243,7 +243,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 12 30 31 32 29 38 39 37 46 22 44</file>
+          <file> 12 30 31 32 29 38 39 37 46 19 44</file>
         </tool>
       </inputs>
     </file>
@@ -258,7 +258,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 9 22 44</file>
+          <file> 9 19 44</file>
         </tool>
       </inputs>
     </file>
@@ -273,7 +273,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 3 22 44</file>
+          <file> 3 19 44</file>
         </tool>
       </inputs>
     </file>
@@ -308,15 +308,6 @@
       <file>$PROJ_DIR$\&lt;invalid loc&gt;</file>
       <file>$PROJ_DIR$\Release\Exe\ComBltth.txt</file>
     </outputs>
-    <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 25</file>
-        </tool>
-      </outputs>
-    </file>
     <file>
       <name>$PROJ_DIR$\bluetooth.c</name>
       <outputs>
@@ -438,6 +429,15 @@
           <file> 10 24 11 12</file>
         </tool>
       </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 25</file>
+        </tool>
+      </outputs>
     </file>
     <forcedrebuild>
       <name>[MULTI_TOOL]</name>

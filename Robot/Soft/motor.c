@@ -20,15 +20,7 @@
 void motor_setup(void)
 {
   // 0 dec +> 00000000
-  P2DIR  |= BIT1 + BIT4;                // 0xFF-BIT5-BIT1-BIT6;//RoueA_BIT + RoueB_BIT + BIT3; 00000010100
-  P2SEL  |= BIT1 + BIT4;                // 0xFF-BIT5-BIT1-BIT6;// RoueA_BIT + RoueB_BIT + BIT3;
-  P2SEL2 &= ~(BIT1 + BIT4);
   
-  //P2DIR |= BIT1 | BIT2;
-  //P2DIR &= ~(BIT3 + BIT4);
-  
-  //TACCR0 = 64;
-  //TA0CTL = MC_0 | TACLR;
   
   //TACCTL0 = CCIE;
   TA1CCTL0  = CCIE;
@@ -39,6 +31,11 @@ void motor_setup(void)
   TA1CCR2   = 0;                         // *1024
   TA1CTL   |= TASSEL_2 | MC_1 | ID_3;    // S%CLK, upmode
   TA1CTL &= ~TAIE;
+  
+  P2DIR  |= (BIT2 + BIT4 + BIT1 + BIT5);
+  P2SEL  |= (BIT2 + BIT4);
+  
+  P2OUT  &= ~(BIT2 + BIT4);
   
   //TA1CTL = MC0;
   __enable_interrupt();
@@ -52,8 +49,8 @@ void motor_setup(void)
 // --------------------------
 void motor_setDir(char l_wheel, char r_wheel)
 {
-  if(l_wheel == '+') P2OUT |= BIT5; else P2OUT &= ~BIT5;
-  if(r_wheel == '+') P2OUT |= BIT2; else P2OUT &= ~BIT2;
+  if(l_wheel == '+') P2OUT &= ~BIT1 ; else P2OUT|= BIT1;
+  if(r_wheel == '+') P2OUT |= BIT5; else P2OUT &= ~BIT5;
 }
 
 // --------------------------
